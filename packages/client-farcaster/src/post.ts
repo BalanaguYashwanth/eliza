@@ -33,8 +33,8 @@ export class FarcasterPostManager {
 
             this.timeout = setTimeout(
                 generateNewCastLoop,
-                (Math.floor(Math.random() * (4 - 1 + 1)) + 1) * 60 * 60 * 1000
-            ); // Random interval between 1 and 4 hours
+                (Math.floor(Math.random() * (4 - 1 + 1)) + 1) * 60 * 1000
+            ); // Random interval between 1 and 4 mins
         };
 
         generateNewCastLoop();
