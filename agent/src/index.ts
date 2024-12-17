@@ -50,6 +50,7 @@ import path from "path";
 import readline from "readline";
 import { fileURLToPath } from "url";
 import yargs from "yargs";
+import { loadCharacterAgent } from "./helper";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -328,6 +329,7 @@ export async function initializeClients(
     character: Character,
     runtime: IAgentRuntime
 ) {
+    try{
     // each client can only register once
     // and if we want two we can explicitly support it
     const clients: Record<string, any> = {};
@@ -367,18 +369,21 @@ export async function initializeClients(
 
     elizaLogger.log('client keys', Object.keys(clients));
 
-    if (character.plugins?.length > 0) {
-        for (const plugin of character.plugins) {
-            // if plugin has clients, add those..
-            if (plugin.clients) {
-                for (const client of plugin.clients) {
-                    clients.push(await client.start(runtime));
+        if (character.plugins?.length > 0) {
+            for (const plugin of character.plugins) {
+                // if plugin has clients, add those..
+                if (plugin.clients) {
+                    for (const client of plugin.clients) {
+                        clients.push(await client.start(runtime));
+                    }
                 }
             }
         }
-    }
 
-    return clients;
+        return clients;
+    } catch(e) {
+        console.log('error in initializeClients', e)
+    }
 }
 
 function isFalsish(input: any): boolean {
@@ -562,37 +567,50 @@ async function startAgent(character: Character, directClient):AgentRuntime {
 const startAgents = async () => {
     const directClient = await DirectClientInterface.start();
     const args = parseArguments();
+    let characters = [];
 
-    let charactersArg = args.characters || args.character;
+    const runUpdatedCharacter = async () => {
 
-    let characters = [defaultCharacter];
+        let charactersArg = args.characters || args.character;
 
-    if (charactersArg) {
-        characters = await loadCharacters(charactersArg);
-    }
+        const fetchCharacters = await loadCharacterAgent();
 
-    try {
-        for (const character of characters) {
-            await startAgent(character, directClient);
+        characters = [...fetchCharacters];
+
+
+        if (charactersArg) {
+            characters = await loadCharacters(charactersArg);
         }
-    } catch (error) {
-        elizaLogger.error("Error starting agents:", error);
-    }
-
-    function chat() {
-        const agentId = characters[0].name ?? "Agent";
-        rl.question("You: ", async (input) => {
-            await handleUserInput(input, agentId);
-            if (input.toLowerCase() !== "exit") {
-                chat(); // Loop back to ask another question
+        if(characters.length > 0) {
+            try {
+                for (const character of characters) {
+                    await startAgent(character, directClient);
+                }
+            } catch (error) {
+                elizaLogger.error("Error starting agents:", error);
             }
-        });
+
+
+            function chat() {
+                const agentId = characters[0].name ?? "Agent";
+                rl.question("You: ", async (input) => {
+                    await handleUserInput(input, agentId);
+                    if (input.toLowerCase() !== "exit") {
+                        chat(); // Loop back to ask another question
+                    }
+                });
+            }
+
+            if (!args["non-interactive"]) {
+                elizaLogger.log("Chat started. Type 'exit' to quit.");
+                chat();
+            }
+        }
     }
 
-    if (!args["non-interactive"]) {
-        elizaLogger.log("Chat started. Type 'exit' to quit.");
-        chat();
-    }
+    setInterval(async () => {
+        await runUpdatedCharacter();
+    }, 5 * 60 * 1000);
 };
 
 startAgents().catch((error) => {
