@@ -16,6 +16,7 @@
     "@aws-sdk/client-s3": "^3.705.0",
     "@aws-sdk/s3-request-presigner": "^3.705.0",
     "@cliqz/adblocker-playwright": "1.34.0",
+    "@deepgram/sdk": "^3.9.0",
     "@echogarden/espeak-ng-emscripten": "0.3.3",
     "@echogarden/kissfft-wasm": "0.2.0",
     "@echogarden/speex-resampler-wasm": "0.2.1",
