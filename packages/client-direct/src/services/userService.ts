@@ -32,6 +32,14 @@ class UserService {
     });
   }
 
+  async getFeedIds() {
+    return await this.userRepository.find({
+      select: {
+        fid: true,
+      },
+    });
+  }
+
   async getAllUsers() {
     return await this.userRepository.find();
   }

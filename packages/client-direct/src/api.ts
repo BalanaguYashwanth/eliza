@@ -14,6 +14,7 @@ import { REST, Routes } from "discord.js";
 import createFarcasterAccount from "./createFarcaster/createFarcasterAccount";
 import { checkAvailableFid, getRandomFid } from "./createFarcaster/helper";
 import {  runPipelineInWorker } from "./scrapeTwitter/utils";
+import UserService from "./services/userService";
 
 
 export function createApiRouter(
@@ -141,6 +142,13 @@ export function createApiRouter(
             console.error("Error: ", error);
             return res.status(500).json({ error: "Something went wrong" });
         }
+    });
+
+
+    router.get("/feedIds", async (req, res) => {
+        const userService = new UserService();
+        const feedIds = await userService.getFeedIds();
+        res.json({ feedIds });
     });
 
     return router;
