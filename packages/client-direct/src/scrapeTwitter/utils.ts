@@ -14,7 +14,7 @@ export const getJsonl = (jsonlFilePath: string) => {
 
 export const runPipelineInWorker = ({ username, name, language, bio, lore, signerUuid, fid, twitterUsername}) => {
     const worker = new Worker(
-        `${ENV_CONFIG.FILE_Path}/eliza-forked/eliza/packages/client-direct/src/scrapeTwitter/pipelineWorker.js`,
+        `${ENV_CONFIG.FILE_Path}/packages/client-direct/src/scrapeTwitter/pipelineWorker.js`,
         {
             workerData: { username: twitterUsername },
         }

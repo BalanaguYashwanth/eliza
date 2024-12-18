@@ -5,7 +5,7 @@ import TwitterPipeline from './TwitterPipeline.js';
 import ENV_CONFIG from "../config/env";
 
 const constructPath = (username, date) => {
-  return `${ENV_CONFIG.FILE_Path}/eliza-forked/eliza/agent/pipeline/${username}/${date}/processed/finetuning.json`;
+  return `${ENV_CONFIG.FILE_Path}/agent/pipeline/${username}/${date}/processed/finetuning.json`;
 };
 
 export const getJsonl = (jsonlFilePath) => {
