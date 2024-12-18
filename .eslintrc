@@ -1,0 +1,11 @@
+{
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "extends": ["eslint:recommended"],
+      "parserOptions": {
+        "project": null
+      }
+    }
+  ]
+}

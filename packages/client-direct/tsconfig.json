@@ -2,9 +2,21 @@
     "extends": "../core/tsconfig.json",
     "compilerOptions": {
         "outDir": "dist",
-        "rootDir": "src"
+        "rootDir": "src",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
     },
     "include": [
-        "src/**/*.ts"
-    ]
+        "src/**/*.ts",
+        "src/models/users.ts"
+    ],
+    "overrides": [
+    {
+      "files": ["*.js"],
+      "extends": ["eslint:recommended"],
+      "parserOptions": {
+        "project": null
+      }
+    }
+  ]
 }

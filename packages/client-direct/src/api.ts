@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+import "reflect-metadata";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -7,10 +10,16 @@ import {
     elizaLogger,
     validateCharacterConfig,
 } from "@ai16z/eliza";
-
 import { REST, Routes } from "discord.js";
+import createFarcasterAccount from "./createFarcaster/createFarcasterAccount";
+import { checkAvailableFid, getRandomFid } from "./createFarcaster/helper";
+import {  runPipelineInWorker } from "./scrapeTwitter/utils";
 
-export function createApiRouter(agents: Map<string, AgentRuntime>, directClient) {
+
+export function createApiRouter(
+    agents: Map<string, AgentRuntime>,
+    directClient
+) {
     const router = express.Router();
 
     router.use(cors());
@@ -51,40 +60,38 @@ export function createApiRouter(agents: Map<string, AgentRuntime>, directClient)
 
     router.post("/agents/:agentId/set", async (req, res) => {
         const agentId = req.params.agentId;
-        console.log('agentId', agentId)
-        let agent:AgentRuntime = agents.get(agentId);
+        let agent: AgentRuntime = agents.get(agentId);
 
         // update character
         if (agent) {
             // stop agent
-            agent.stop()
-            directClient.unregisterAgent(agent)
+            agent.stop();
+            directClient.unregisterAgent(agent);
             // if it has a different name, the agentId will change
         }
 
         // load character from body
-        const character = req.body
+        const character = req.body;
         try {
-          validateCharacterConfig(character)
-        } catch(e) {
-          elizaLogger.error(`Error parsing character: ${e}`);
-          res.status(400).json({
-            success: false,
-            message: e.message,
-          });
-          return;
+            validateCharacterConfig(character);
+        } catch (e) {
+            elizaLogger.error(`Error parsing character: ${e}`);
+            res.status(400).json({
+                success: false,
+                message: e.message,
+            });
+            return;
         }
 
         // start it up (and register it)
-        agent = await directClient.startAgent(character)
-        elizaLogger.log(`${character.name} started`)
+        agent = await directClient.startAgent(character);
+        elizaLogger.log(`${character.name} started`);
 
         res.json({
             id: character.id,
             character: character,
         });
     });
-
 
     router.get("/agents/:agentId/channels", async (req, res) => {
         const agentId = req.params.agentId;
@@ -109,6 +116,30 @@ export function createApiRouter(agents: Map<string, AgentRuntime>, directClient)
         } catch (error) {
             console.error("Error fetching guilds:", error);
             res.status(500).json({ error: "Failed to fetch guilds" });
+        }
+    });
+
+    router.post("/launch-agent", async (req, res) => {
+        try {
+            const { username, name, language, bio, lore, twitterUsername } = req.body;
+            const fid = await getRandomFid();
+            const isNameAvailable = await checkAvailableFid(username);
+            if (!isNameAvailable) {
+                return res.status(400).json({ error: "Name not available" });
+            }
+            if(!username || !name || !language || !bio || !lore || !twitterUsername){
+                return res.status(400).json({ error: "All fields are required" });
+            }
+            const farcasterAccount = await createFarcasterAccount({
+                FID: fid,
+                username,
+            });
+            const signerUuid = farcasterAccount.signer.signer_uuid;
+            runPipelineInWorker({ username, name, language, bio, lore, twitterUsername, signerUuid, fid});
+            res.json({ message: "Agent launched successfully, Wait for few minutes to complete the process" });
+        } catch (error) {
+            console.error("Error: ", error);
+            return res.status(500).json({ error: "Something went wrong" });
         }
     });
 

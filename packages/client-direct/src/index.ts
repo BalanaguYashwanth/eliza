@@ -19,6 +19,7 @@ import { settings } from "@ai16z/eliza";
 import { createApiRouter } from "./api.ts";
 import * as fs from "fs";
 import * as path from "path";
+import { AppDataSource } from "./config/db.ts";
 const upload = multer({ storage: multer.memoryStorage() });
 
 export const messageHandlerTemplate =
@@ -381,7 +382,19 @@ export class DirectClient {
         this.agents.delete(runtime.agentId);
     }
 
-    public start(port: number) {
+    public async initializeDatabase() {
+        await AppDataSource.initialize()
+        .then(() => {
+            console.log("Data Source has been initialized!");
+        })
+        .catch((err) => {
+            console.error("Error during Data Source initialization:", err);
+        });
+        console.log("Postgres Database connection established");
+    }
+
+    public async start(port: number) {
+        await this.initializeDatabase()
         this.server = this.app.listen(port, () => {
             elizaLogger.success(
                 `REST API bound to 0.0.0.0:${port}. If running locally, access it at http://localhost:${port}.`

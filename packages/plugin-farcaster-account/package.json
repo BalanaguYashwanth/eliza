@@ -1,0 +1,13 @@
+{
+  "name": "plugin-farcaster-account",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+
+  "keywords": [],
+  "author": "BalanaguYashwanth",
+  "license": "ISC",
+  "dependencies": {
+    "@ai16z/eliza": "0.1.6-alpha.4"
+  }
+}

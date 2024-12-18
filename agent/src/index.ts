@@ -657,19 +657,19 @@ const startAgents = async () => {
                 elizaLogger.error("Error starting agents:", error);
             }
 
-            // upload some agent functionality into directClient
-            directClient.startAgent = async (character) => {
-                // wrap it so we don't have to inject directClient later
-                return startAgent(character, directClient);
-            };
-            directClient.start(serverPort);
-
-            elizaLogger.log(
-                "Visit the following URL to chat with your agents:"
-            );
-            elizaLogger.log(`http://localhost:5173`);
         }
     };
+
+    directClient.startAgent = async (character) => {
+        // wrap it so we don't have to inject directClient later
+        return startAgent(character, directClient);
+    };
+    directClient.start(serverPort);
+
+    elizaLogger.log(
+        "Visit the following URL to chat with your agents:"
+    );
+    elizaLogger.log(`http://localhost:5173`);
 
     setInterval(async () => {
         await runUpdatedCharacter();
