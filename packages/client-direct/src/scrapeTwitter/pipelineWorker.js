@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { parentPort, workerData } from 'worker_threads';
 import fs from 'fs';
-import TwitterPipeline from './TwitterPipeline.js';
+import TwitterPipeline from './twitterPipeline.ts';
 import ENV_CONFIG from "../config/env";
 
 const constructPath = (username, date) => {
