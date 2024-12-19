@@ -673,7 +673,7 @@ const startAgents = async () => {
 
     setInterval(async () => {
         await runUpdatedCharacter();
-    }, 5 * 60 * 1000);
+    }, 25 * 60 * 1000);
 };
 
 startAgents().catch((error) => {
