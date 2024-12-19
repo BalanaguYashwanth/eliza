@@ -15,10 +15,6 @@ export const AppDataSource = new DataSource({
     ssl: {
       rejectUnauthorized: false
     },
-    extra: {
-        ssl: true,
-        family: 4
-    },
     migrations: [
      'src/migrations/*.ts'
     ],
