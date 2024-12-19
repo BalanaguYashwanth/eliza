@@ -15,7 +15,11 @@ export const AppDataSource = new DataSource({
     ssl: {
       rejectUnauthorized: false
     },
+    extra: {
+        family: 4
+    },
     migrations: [
      'src/migrations/*.ts'
     ],
   });
+console.log('DB URL: ',ENV_CONFIG.DB_URL)
