@@ -123,21 +123,22 @@ export function createApiRouter(
     router.post("/launch-agent", async (req, res) => {
         try {
             const { username, name, language, bio, lore, twitterUsername } = req.body;
+            const lowerUsername = username?.toLowerCase();
             const fid = await getRandomFid();
-            const isNameAvailable = await checkAvailableFid(username);
+            const isNameAvailable = await checkAvailableFid(lowerUsername);
             if (!isNameAvailable) {
                 return res.status(400).json({ error: "Name not available" });
             }
-            if(!username || !name || !language || !bio || !lore || !twitterUsername){
+            if(!lowerUsername || !name || !language || !bio || !lore || !twitterUsername){
                 return res.status(400).json({ error: "All fields are required" });
             }
             const farcasterAccount = await createFarcasterAccount({
                 FID: fid,
-                username,
+                username: lowerUsername,
                 name
             });
             const signerUuid = farcasterAccount.signer.signer_uuid;
-            runPipelineInWorker({ username, name, language, bio, lore, twitterUsername, signerUuid, fid});
+            runPipelineInWorker({ username: lowerUsername, name, language, bio, lore, twitterUsername, signerUuid, fid});
             res.json({ message: "Agent launched successfully, Wait for few minutes to complete the process" });
         } catch (error) {
             console.error("Error: ", error);
