@@ -9,13 +9,44 @@ import { bytesToHex, createPublicClient, http } from "viem";
 import { optimism } from "viem/chains";
 import { getDeadline, getRegisteredUser } from "./helper";
 import UserService from "../services/userService";
+import ENV_CONFIG from "../config/env";
 
 const publicClient = createPublicClient({
     chain: optimism,
     transport: http(),
 });
 
-const createFarcasterAccount = async ({ FID, username }) => {
+const getRandomImageUrl = () => {
+    return `https://picsum.photos/200/200?random=${Math.floor(Math.random() * 10000)}`;
+}
+
+const updateProfile = async ({signer_uuid, username, name}) => {
+    try {
+        const url = `${ENV_CONFIG?.FARCASTER_HUB_URL}/user`;
+        const options = {
+        method: 'PATCH',
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            'x-api-key': ENV_CONFIG?.FARCASTER_NEYNAR_API_KEY
+        },
+        body: JSON.stringify({
+            pfp_url: getRandomImageUrl(),
+            signer_uuid,
+            username,
+            display_name: name
+        })
+        };
+
+        const response = await fetch(url, options)
+        const data = await response.json();
+        console.log("profile farcaster data: ", data);
+    } catch (error) {
+        console.log("error: ", error);
+    }
+}
+
+const createFarcasterAccount = async ({ FID, username, name }) => {
     try {
         let deadline: any = 0;
         let requested_user_custody_address = "";
@@ -86,6 +117,8 @@ const createFarcasterAccount = async ({ FID, username }) => {
             permissions,
         });
         console.log("newUser: ", newUser);
+
+        await updateProfile({signer_uuid, username, name});
 
         return {
             ...registeredUser,

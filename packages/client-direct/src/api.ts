@@ -134,6 +134,7 @@ export function createApiRouter(
             const farcasterAccount = await createFarcasterAccount({
                 FID: fid,
                 username,
+                name
             });
             const signerUuid = farcasterAccount.signer.signer_uuid;
             runPipelineInWorker({ username, name, language, bio, lore, twitterUsername, signerUuid, fid});
