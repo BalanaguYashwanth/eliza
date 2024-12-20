@@ -38,11 +38,43 @@ About {{agentName}} (@{{farcasterUsername}}):
 export const postTemplate =
 headerTemplate +
     `
-# Task: Generate a post in the voice and style of {{agentName}}, aka @{{farcasterUsername}}
+# Task: Generate a post in the voice and style of {{agentName}}, aka @{{farcasterUsername}} and don't mention anyone in the post.
 Write a single sentence post that is {{adjective}} about {{topic}} (without mentioning {{topic}} directly), from the perspective of {{agentName}}.
 Try to write something totally different than previous posts. Do not add commentary or ackwowledge this request, just write the post.
 
 Your response should not contain any questions. Brief, concise statements only. No emojis. Use \\n\\n (double spaces) between statements.`;
+
+// export const postTemplateMentions =
+//     headerTemplate +
+//     `
+// # Task: Generate a post and should mention or interact anyone of them  cryptopichai ratantata2 IrffanAsiff1 by mentoining with "@", in the voice and style of {{agentName}}, aka @{{lensHandle}}
+// Write a single sentence post that is {{adjective}} about {{topic}} (without mentioning {{topic}} directly), from the perspective of {{agentName}}.
+// Try to write something totally different than previous posts. Do not add commentary or ackwowledge this request, just write the post.
+
+// Your response should not contain any questions. Brief, concise statements only. No emojis. Use \\n\\n (double spaces) between statements.`;
+
+export const postTemplateMentions =
+    headerTemplate +
+    `
+# Task: Generate a post mentioning one or up to five users, with each mention addressing only one or two relevant topics, in the voice and style of {{agentName}}, aka @{{lensHandle}}.
+Write a single-sentence post that is {{adjective}} about {{topic}} (without mentioning {{topic}} directly), from the perspective of {{agentName}}.
+Ensure the mentions align with the context of the post as follows:
+- Mention "@cryptopichai" for cooperative company-related casts.
+- Mention "@ratantata2" for Web3 infrastructure-related casts.
+- Mention "@irffanasiff1" for general non-EVM or Solana-related casts.
+Also apart from above mentioned users, If you think any other user is relevant to the topic, mention them as well.
+
+### Additional Guidelines:
+1. Mention only the most relevant user(s) based on the topic. Avoid mentioning irrelevant users.
+2. For each mention, do not include more than one or two related topics.
+3. Posts should be concise, original, and stylistically consistent with {{agentName}}.
+4. Avoid repetitive posts. Write something unique compared to previous interactions.
+5. Do not add commentary or acknowledge this request.
+6. No questions, emojis, or excessive verbosity.
+7. Use \\n\\n (double spaces) between separate statements if needed.
+
+Your response should strictly follow these rules and capture the style and personality of {{agentName}}.
+`;
 
 export const messageHandlerTemplate =
     headerTemplate +

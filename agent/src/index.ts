@@ -631,6 +631,8 @@ async function startAgent(
     }
 }
 
+let intervalId;
+
 const startAgents = async () => {
     const directClient = new DirectClient();
     const serverPort = parseInt(settings.SERVER_PORT || "3000");
@@ -638,7 +640,6 @@ const startAgents = async () => {
     let characters = [];
 
     const runUpdatedCharacter = async () => {
-
         let charactersArg = args.characters || args.character;
 
         const fetchCharacters = await loadCharacterAgent();
@@ -656,22 +657,24 @@ const startAgents = async () => {
             } catch (error) {
                 elizaLogger.error("Error starting agents:", error);
             }
-
         }
     };
 
     directClient.startAgent = async (character) => {
-        // wrap it so we don't have to inject directClient later
         return startAgent(character, directClient);
     };
     directClient.start(serverPort);
 
-    elizaLogger.log(
-        "Visit the following URL to chat with your agents:"
-    );
+    elizaLogger.log("Visit the following URL to chat with your agents:");
     elizaLogger.log(`http://localhost:5173`);
 
-    setInterval(async () => {
+    // Clear any existing interval
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+
+    // Set a single interval
+    intervalId = setInterval(async () => {
         await runUpdatedCharacter();
     }, 25 * 60 * 1000);
 };

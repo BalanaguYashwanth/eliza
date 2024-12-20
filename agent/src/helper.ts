@@ -16,7 +16,6 @@ export const loadCharacterAgent = async () => {
     try {
         const agents = await fetchCharacterAgents();
         for(let agent in agents) {
-            console.log("agent---->", agents[agent]);
             agents[agent].id = uuidv4()
             arr.push((agents[agent]))
         }

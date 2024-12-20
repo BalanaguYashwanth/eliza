@@ -7,11 +7,12 @@ import {
     elizaLogger
 } from "@ai16z/eliza";
 import { FarcasterClient } from "./client";
-import { formatTimeline, postTemplate } from "./prompts";
+import { formatTimeline, postTemplate, postTemplateMentions } from "./prompts";
 import { castUuid } from "./utils";
 import { createCastMemory } from "./memory";
 import { sendCast } from "./actions";
 
+let castCount = 0;
 export class FarcasterPostManager {
     private timeout: NodeJS.Timeout | undefined;
 
@@ -83,13 +84,17 @@ export class FarcasterPostManager {
                     timeline: formattedHomeTimeline,
                 }
             );
-
+            castCount = castCount+ 1;
+            if(castCount > 10) {
+                castCount = 0;
+            }
+            const template = castCount === 10 ? postTemplateMentions : postTemplate;
             // Generate new cast
             const context = composeContext({
                 state,
                 template:
                     this.runtime.character.templates?.farcasterPostTemplate ||
-                    postTemplate,
+                    template,
             });
 
             const newContent = await generateText({
