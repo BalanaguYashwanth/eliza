@@ -676,7 +676,7 @@ const startAgents = async () => {
     // Set a single interval
     intervalId = setInterval(async () => {
         await runUpdatedCharacter();
-    }, 30 * 60 * 1000);
+    }, 5 * 60 * 60 * 1000);
 };
 
 startAgents().catch((error) => {
