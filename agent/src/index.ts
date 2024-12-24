@@ -651,13 +651,22 @@ const startAgents = async () => {
         }
         if (characters.length > 0) {
             try {
+                let delay = 0;
                 for (const character of characters) {
-                    await startAgent(character, directClient);
+                    setTimeout(async () => {
+                        await startAgent(character, directClient);
+                    }, delay);
+                    delay += 5 * 60 * 1000; // 5 minute gap
                 }
             } catch (error) {
                 elizaLogger.error("Error starting agents:", error);
             }
         }
+
+        intervalId = setInterval(async () => {
+            await runUpdatedCharacter();
+        }, 15 * 60 * 60 * 1000);
+
     };
 
     directClient.startAgent = async (character) => {
@@ -673,10 +682,7 @@ const startAgents = async () => {
         clearInterval(intervalId);
     }
 
-    // Set a single interval
-    intervalId = setInterval(async () => {
-        await runUpdatedCharacter();
-    }, 5 * 60 * 60 * 1000);
+    await runUpdatedCharacter();
 };
 
 startAgents().catch((error) => {

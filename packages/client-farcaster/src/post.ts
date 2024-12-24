@@ -32,10 +32,6 @@ export class FarcasterPostManager {
                 return;
             }
 
-            this.timeout = setTimeout(
-                generateNewCastLoop,
-                5 * 60 * 60 * 1000
-            ); // Random interval between 1 and 4 mins
         };
 
         generateNewCastLoop();
