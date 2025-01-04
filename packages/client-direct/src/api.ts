@@ -13,7 +13,7 @@ import {
 import { REST, Routes } from "discord.js";
 import createFarcasterAccount from "./createFarcaster/createFarcasterAccount";
 import { checkAvailableFid, getRandomFid } from "./createFarcaster/helper";
-import {  runPipelineInWorker } from "./scrapeTwitter/utils";
+import {  createEmbeddedWallet, getFarcasterWalletAddressFromFid, runPipelineInWorker } from "./scrapeTwitter/utils";
 import UserService from "./services/userService";
 
 
@@ -122,23 +122,30 @@ export function createApiRouter(
 
     router.post("/launch-agent", async (req, res) => {
         try {
-            const { username, name, language, bio, lore, twitterUsername } = req.body;
-            const lowerUsername = username?.toLowerCase();
+            // todo - check the farcaster account is creating on username and training on twitterusername
+            const username = req.body?.username?.toLowerCase();
+            const { name, language, twitterUsername} = req.body;
             const fid = await getRandomFid();
-            const isNameAvailable = await checkAvailableFid(lowerUsername);
+            const isNameAvailable = await checkAvailableFid(username);
             if (!isNameAvailable) {
-                return res.status(400).json({ error: "Name not available" });
+                 return res.status(400).json({ error: "Name not available" });
             }
-            if(!lowerUsername || !name || !language || !bio || !lore || !twitterUsername){
-                return res.status(400).json({ error: "All fields are required" });
+            if(!username || !name || !language || !twitterUsername){
+                 return res.status(400).json({ error: "All fields are required" });
             }
             const farcasterAccount = await createFarcasterAccount({
-                FID: fid,
-                username: lowerUsername,
-                name
+                    FID: fid,
+                    username,
+                    name
             });
-            const signerUuid = farcasterAccount.signer.signer_uuid;
-            runPipelineInWorker({ username: lowerUsername, name, language, bio, lore, twitterUsername, signerUuid, fid});
+            const signerUuid = farcasterAccount?.signer?.signer_uuid;
+            const user_db_id = farcasterAccount?.user_db_id
+
+            const owner = await getFarcasterWalletAddressFromFid(fid)
+            const ownerAddress = owner?.users[0]?.custody_address
+
+            runPipelineInWorker({ username, name, language, twitterUsername, signerUuid, fid});
+            await createEmbeddedWallet({type: 'farcaster', fid, username, ownerAddress, user_db_id })
             res.json({ message: "Agent launched successfully, Wait for few minutes to complete the process" });
         } catch (error) {
             console.error("Error: ", error);

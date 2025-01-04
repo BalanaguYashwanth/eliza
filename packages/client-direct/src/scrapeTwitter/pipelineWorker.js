@@ -4,9 +4,9 @@ import fs from 'fs';
 import TwitterPipeline from './twitterPipeline.ts';
 import ENV_CONFIG from "../config/env";
 
-const constructPath = (username, date) => {
-    const lowerUsername = username?.toLowerCase();
-  return `${ENV_CONFIG.FILE_Path}/agent/pipeline/${lowerUsername}/${date}/processed/finetuning.json`;
+const constructPath = (twitterUsername, date) => {
+    const twitterUsernameLowercase = twitterUsername?.toLowerCase();
+  return `${ENV_CONFIG.FILE_Path}/agent/pipeline/${twitterUsernameLowercase}/${date}/processed/finetuning.json`;
 };
 
 export const getJsonl = (jsonlFilePath) => {
@@ -17,19 +17,19 @@ export const getJsonl = (jsonlFilePath) => {
     .map(line => JSON.parse(line));
 };
 
-export const runPipeline = async (username) => {
+export const runPipeline = async (workerData) => {
+  const { username, twitterUsername } = workerData;
   try {
-    const pipeline = new TwitterPipeline(username);
+    const pipeline = new TwitterPipeline(twitterUsername);
     await pipeline.run();
 
     const date = new Date();
     const formattedDate = date.toISOString().split('T')[0];
-    const filePath = constructPath(username, formattedDate);
+    const filePath = constructPath(twitterUsername, formattedDate);
 
     const jsonl = getJsonl(filePath);
-
     // Send completion message to the parent thread
-    parentPort?.postMessage({ username, status: 'completed', result: jsonl });
+    parentPort?.postMessage({ username, status: 'completed', result: jsonl, createdAt: formattedDate });
   } catch (error) {
     console.error(`Error in worker for ${username} job :`, error);
 
@@ -38,6 +38,5 @@ export const runPipeline = async (username) => {
   }
 };
 
-// Start the pipeline when the worker receives data
-const { username } = workerData;
-runPipeline(username);
+// Start the pipeline when the worker receives data;
+runPipeline(workerData);

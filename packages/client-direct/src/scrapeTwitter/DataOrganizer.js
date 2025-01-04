@@ -121,13 +121,11 @@ class DataOrganizer {
         `ℹ️  Generating fine-tuning data with ${finetuningData.length} entries`
       );
 
-      console.log('finetuningData', finetuningData[0].text);
       if (finetuningData.length > 0) {
         const data = [];
         for(const d of finetuningData){
           data.push(d.text);
         }
-        console.log('data', data);
         await fs.writeFile(
           paths.processed.finetuning,
           JSON.stringify({finetuningData: data}),

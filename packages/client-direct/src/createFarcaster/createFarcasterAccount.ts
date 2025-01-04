@@ -39,13 +39,13 @@ const updateProfile = async ({signer_uuid, username, name}) => {
         };
 
         const response = await fetch(url, options)
-        const data = await response.json();
-        console.log("profile farcaster data: ", data);
+        await response.json();
     } catch (error) {
         console.log("error: ", error);
     }
 }
 
+//todo - handle errors or error logs - correctly
 const createFarcasterAccount = async ({ FID, username, name }) => {
     try {
         let deadline: any = 0;
@@ -54,19 +54,10 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
 
         const latest_deadline = getDeadline() as any;
         deadline = parseInt(latest_deadline);
-        console.log("\ndeadline: ", deadline);
-
         const mnemonic = bip39.generateMnemonic();
-        console.log("\nGenerated mnemonic: ", mnemonic);
-
         const requestedUserAccount = mnemonicToAccount(mnemonic);
         const requestedUserAccountSigner = new ViemLocalEip712Signer(
             requestedUserAccount
-        );
-
-        console.log(
-            "\nrequested_user_custody_address: ",
-            requestedUserAccount.address
         );
         requested_user_custody_address = requestedUserAccount.address;
 
@@ -77,8 +68,6 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
             args: [requestedUserAccount.address],
         });
 
-        console.log("\nfid: ", parseInt(FID));
-
         const requestedUserSignature =
             (await requestedUserAccountSigner.signTransfer({
                 fid: BigInt(FID),
@@ -87,11 +76,6 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
                 deadline,
             })) as unknown as { value: any };
 
-        console.log(
-            "\nsignature: ",
-            bytesToHex(requestedUserSignature?.value),
-            "\n"
-        );
         signature = bytesToHex(requestedUserSignature.value);
 
         const registeredUser = await getRegisteredUser(
@@ -116,12 +100,12 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
             status,
             permissions,
         });
-        console.log("newUser: ", newUser);
 
         await updateProfile({signer_uuid, username, name});
 
         return {
             ...registeredUser,
+            user_db_id: newUser.id
         };
     } catch (error) {
         console.log("error: ", error);

@@ -8,6 +8,7 @@
     "@ai16z/eliza": "workspace:*",
     "@ai16z/plugin-image-generation": "workspace:*",
     "@farcaster/hub-nodejs": "^0.12.7",
+    "@privy-io/server-auth": "^1.17.2",
     "@supabase/supabase-js": "2.46.2",
     "@types/body-parser": "1.19.5",
     "@types/cors": "2.8.17",

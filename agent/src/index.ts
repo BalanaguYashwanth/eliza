@@ -646,6 +646,7 @@ const startAgents = async () => {
 
         characters = [...fetchCharacters];
 
+
         if (charactersArg) {
             characters = await loadCharacters(charactersArg);
         }
@@ -668,7 +669,6 @@ const startAgents = async () => {
         }, 15 * 60 * 60 * 1000);
 
     };
-
     directClient.startAgent = async (character) => {
         return startAgent(character, directClient);
     };
