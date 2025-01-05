@@ -1,25 +1,39 @@
 {
-  "name": "@ai16z/client-direct",
-  "version": "0.1.6-alpha.3",
-  "main": "dist/index.js",
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "dependencies": {
-    "@ai16z/eliza": "workspace:*",
-    "@ai16z/plugin-image-generation": "workspace:*",
-    "@farcaster/hub-nodejs": "^0.12.7",
+    "name": "@elizaos/client-direct",
+    "version": "0.1.7",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "type": "module",
+    "types": "dist/index.d.ts",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "import": {
+                "@elizaos/source": "./src/index.ts",
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "dependencies": {
+        "@elizaos/core": "workspace:*",
+        "@elizaos/plugin-image-generation": "workspace:*",
+        "@farcaster/hub-nodejs": "^0.12.7",
     "@privy-io/server-auth": "^1.17.2",
     "@supabase/supabase-js": "2.46.2",
     "@types/body-parser": "1.19.5",
-    "@types/cors": "2.8.17",
-    "@types/express": "5.0.0",
-    "axios": "^1.7.9",
+        "@types/cors": "2.8.17",
+        "@types/express": "5.0.0",
+        "axios": "^1.7.9",
     "bip39": "^3.1.0",
     "body-parser": "1.20.3",
-    "cors": "2.8.5",
-    "discord.js": "14.16.3",
-    "express": "4.21.1",
-    "multer": "1.4.5-lts.1",
+        "cors": "2.8.5",
+        "discord.js": "14.16.3",
+        "express": "4.21.1",
+        "multer": "1.4.5-lts.1",
     "pg": "8.13.1",
     "puppeteer-cluster": "^0.24.0",
     "puppeteer-extra-plugin-adblocker": "^2.13.6",
@@ -27,20 +41,21 @@
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20",
     "viem": "^2.21.55"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.2",
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.2",
     "ts-node": "^10.9.2",
     "tsup": "8.3.5",
+        "@types/multer": "^1.4.12",
     "typescript": "^5.7.2"
-  },
-  "scripts": {
-    "build": "tsup --format esm --dts",
-    "dev": "tsup --format esm --dts --watch",
-    "lint": "eslint --fix  --cache .",
+    },
+    "scripts": {
+        "build": "tsup --format esm --dts",
+        "dev": "tsup --format esm --dts --watch",
+        "lint": "eslint --fix  --cache .",
     "dev:server": "ts-node --esm src/index.ts"
-  },
-  "peerDependencies": {
-    "whatwg-url": "7.1.0"
-  }
+    },
+    "peerDependencies": {
+        "whatwg-url": "7.1.0"
+    }
 }

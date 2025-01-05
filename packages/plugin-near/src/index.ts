@@ -2,7 +2,7 @@
 import { walletProvider } from "./providers/wallet";
 // import { executeCreateToken } from "./actions/createToken";
 import { executeSwap } from "./actions/swap";
-import { executeTransfer } from './actions/transfer';
+import { executeTransfer } from "./actions/transfer";
 
 export const nearPlugin: any = {
     name: "NEAR",
