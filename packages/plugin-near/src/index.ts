@@ -1,10 +1,10 @@
-import { Plugin } from "@ai16z/eliza/src/types";
+// import { Plugin } from "@ai16z/eliza/src/types";
 import { walletProvider } from "./providers/wallet";
 // import { executeCreateToken } from "./actions/createToken";
 import { executeSwap } from "./actions/swap";
 import { executeTransfer } from './actions/transfer';
 
-export const nearPlugin: Plugin = {
+export const nearPlugin: any = {
     name: "NEAR",
     description: "Near Protocol Plugin for Eliza",
     providers: [walletProvider],

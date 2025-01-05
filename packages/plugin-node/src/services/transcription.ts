@@ -35,7 +35,7 @@ export class TranscriptionService
     private openai: OpenAI | null = null;
     private deepgram?: DeepgramClient;
 
-    private queue: { audioBuffer: ArrayBuffer; resolve: Function }[] = [];
+    private queue: { audioBuffer: any; resolve: Function }[] = [];
     private processing: boolean = false;
 
     async initialize(_runtime: IAgentRuntime): Promise<void> {
@@ -113,7 +113,7 @@ export class TranscriptionService
         }
     }
 
-    private async convertAudio(inputBuffer: ArrayBuffer): Promise<Buffer> {
+    private async convertAudio(inputBuffer: any): Promise<Buffer> {
         const inputPath = path.join(
             this.CONTENT_CACHE_DIR,
             `input_${Date.now()}.wav`
@@ -156,7 +156,7 @@ export class TranscriptionService
         }
     }
 
-    private async saveDebugAudio(audioBuffer: ArrayBuffer, prefix: string) {
+    private async saveDebugAudio(audioBuffer: any, prefix: string) {
         this.ensureDebugDirectoryExists();
 
         const filename = `${prefix}_${Date.now()}.wav`;
@@ -167,12 +167,12 @@ export class TranscriptionService
     }
 
     public async transcribeAttachment(
-        audioBuffer: ArrayBuffer
+        audioBuffer: any
     ): Promise<string | null> {
         return await this.transcribe(audioBuffer);
     }
 
-    public async transcribe(audioBuffer: ArrayBuffer): Promise<string | null> {
+    public async transcribe(audioBuffer: any): Promise<string | null> {
         // if the audio buffer is less than .2 seconds, just return null
         if (audioBuffer.byteLength < 0.2 * 16000) {
             return null;
@@ -186,7 +186,7 @@ export class TranscriptionService
     }
 
     public async transcribeAttachmentLocally(
-        audioBuffer: ArrayBuffer
+        audioBuffer: any
     ): Promise<string | null> {
         return this.transcribeLocally(audioBuffer);
     }
@@ -216,7 +216,7 @@ export class TranscriptionService
     }
 
     private async transcribeWithDeepgram(
-        audioBuffer: ArrayBuffer
+        audioBuffer: any
     ): Promise<string | null> {
         const buffer = Buffer.from(audioBuffer);
         const response = await this.deepgram.listen.prerecorded.transcribeFile(
@@ -233,14 +233,14 @@ export class TranscriptionService
     }
 
     private async transcribeWithOpenAI(
-        audioBuffer: ArrayBuffer
+        audioBuffer: any
     ): Promise<string | null> {
         elizaLogger.log("Transcribing audio with OpenAI...");
 
         try {
             await this.saveDebugAudio(audioBuffer, "openai_input_original");
 
-            const convertedBuffer = await this.convertAudio(audioBuffer);
+            const convertedBuffer = await this.convertAudio(audioBuffer as any);
 
             await this.saveDebugAudio(
                 convertedBuffer,
@@ -281,7 +281,7 @@ export class TranscriptionService
     }
 
     public async transcribeLocally(
-        audioBuffer: ArrayBuffer
+        audioBuffer: any
     ): Promise<string | null> {
         try {
             elizaLogger.log("Transcribing audio locally...");
