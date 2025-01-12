@@ -26,18 +26,21 @@ class UserService {
     }
   }
 
-  async findUserByEmail(email: string) {
+  async findUserByFid(fid: number) {
     return await this.userRepository.findOne({
-      where: { fid: email }
+      where: { fid }
     });
   }
 
   async getFeedIds() {
-    return await this.userRepository.find({
-      select: {
-        fid: true,
-      },
-    });
+    const jsonFidArr =  await this.userRepository.find({
+        select: {
+            fid: true,
+        },
+    }) as unknown as [{fid: string}];
+
+    const fids = jsonFidArr.map(({fid})=>fid)
+    return fids
   }
 
   async getAllUsers() {

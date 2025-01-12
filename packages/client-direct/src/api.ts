@@ -147,10 +147,10 @@ export function createApiRouter(
     });
 
 
-    router.get("/feedIds", async (req, res) => {
+    router.get("/agent-ids", async (req, res) => {
         const userService = new UserService();
-        const feedIds = await userService.getFeedIds();
-        res.json({ feedIds });
+        const data = await userService.getFeedIds();
+        res.json({ data });
     });
 
     return router;
