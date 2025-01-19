@@ -8,8 +8,8 @@ import * as bip39 from "bip39";
 import { bytesToHex, createPublicClient, http } from "viem";
 import { optimism } from "viem/chains";
 import { getDeadline, getRegisteredUser } from "./helper";
-import UserService from "../services/userService";
 import ENV_CONFIG from "../config/env";
+import AgentService from "../services/agentService";
 
 const publicClient = createPublicClient({
     chain: optimism,
@@ -18,33 +18,33 @@ const publicClient = createPublicClient({
 
 const getRandomImageUrl = () => {
     return `https://picsum.photos/200/200?random=${Math.floor(Math.random() * 10000)}`;
-}
+};
 
-const updateProfile = async ({signer_uuid, username, name}) => {
+const updateProfile = async ({ signer_uuid, username, name }) => {
     try {
         const url = `${ENV_CONFIG?.FARCASTER_HUB_URL}/user`;
         const options = {
-        method: 'PATCH',
-        headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-            'x-api-key': ENV_CONFIG?.FARCASTER_NEYNAR_API_KEY
-        },
-        body: JSON.stringify({
-            pfp_url: getRandomImageUrl(),
-            signer_uuid,
-            username,
-            display_name: name
-        })
+            method: "PATCH",
+            headers: {
+                accept: "application/json",
+                "content-type": "application/json",
+                "x-api-key": ENV_CONFIG?.FARCASTER_NEYNAR_API_KEY,
+            },
+            body: JSON.stringify({
+                pfp_url: getRandomImageUrl(),
+                signer_uuid,
+                username,
+                display_name: name,
+            }),
         };
 
-        const response = await fetch(url, options)
+        const response = await fetch(url, options);
         const data = await response.json();
         console.log("profile farcaster data: ", data);
     } catch (error) {
         console.log("error: ", error);
     }
-}
+};
 
 const createFarcasterAccount = async ({ FID, username, name }) => {
     try {
@@ -105,9 +105,9 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
         const {
             signer: { signer_uuid, public_key, status, permissions },
         } = registeredUser;
-        const userService = new UserService();
+        const agentService = new AgentService();
 
-        const newUser = await userService.createUser({
+        const newUser = await agentService.createAgent({
             fid: FID,
             username,
             mnemonic,
@@ -118,7 +118,7 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
         });
         console.log("newUser: ", newUser);
 
-        await updateProfile({signer_uuid, username, name});
+        await updateProfile({ signer_uuid, username, name });
 
         return {
             ...registeredUser,

@@ -13,9 +13,14 @@ import {
 import { REST, Routes } from "discord.js";
 import createFarcasterAccount from "./createFarcaster/createFarcasterAccount";
 import { checkAvailableFid, getRandomFid } from "./createFarcaster/helper";
-import {  runPipelineInWorker } from "./scrapeTwitter/utils";
-import UserService from "./services/userService";
-
+import {
+    createEmbeddedWallet,
+    hasUserExists,
+    runPipelineInWorker,
+    saveUser,
+} from "./scrapeTwitter/utils";
+import AgentService from "./services/agentService";
+import { PLATFORM } from "./config/constantTypes";
 
 export function createApiRouter(
     agents: Map<string, AgentRuntime>,
@@ -122,34 +127,66 @@ export function createApiRouter(
 
     router.post("/launch-agent", async (req, res) => {
         try {
-            const { username, name, language, bio, lore, twitterUsername } = req.body;
+            const { username, name, language, twitterUsername } = req.body;
             const lowerUsername = username?.toLowerCase();
             const fid = await getRandomFid();
             const isNameAvailable = await checkAvailableFid(lowerUsername);
             if (!isNameAvailable) {
                 return res.status(400).json({ error: "Name not available" });
             }
-            if(!lowerUsername || !name || !language || !bio || !lore || !twitterUsername){
-                return res.status(400).json({ error: "All fields are required" });
+            if (
+                !lowerUsername ||
+                !name ||
+                !language ||
+                !twitterUsername
+            ) {
+                return res
+                    .status(400)
+                    .json({ error: "All fields are required" });
             }
             const farcasterAccount = await createFarcasterAccount({
                 FID: fid,
                 username: lowerUsername,
-                name
+                name,
             });
             const signerUuid = farcasterAccount.signer.signer_uuid;
-            runPipelineInWorker({ username: lowerUsername, name, language, bio, lore, twitterUsername, signerUuid, fid});
-            res.json({ message: "Agent launched successfully, Wait for few minutes to complete the process" });
+            runPipelineInWorker({
+                username: lowerUsername,
+                name,
+                language,
+                twitterUsername,
+                signerUuid,
+                fid,
+            });
+            res.json({
+                message:
+                    "Agent launched successfully, Wait for few minutes to complete the process",
+            });
         } catch (error) {
             console.error("Error: ", error);
             return res.status(500).json({ error: "Something went wrong" });
         }
     });
 
+    router.post("/create-user", async (req, res) => {
+        try {
+            const {fid,  ownerAddress, username} = req.body;
+            if(await hasUserExists(fid)){
+                return res.status(200).json({'status': "already exists"})
+            }
+            const user = await createEmbeddedWallet({type: PLATFORM.FARCASTER, fid, ownerAddress, username});
+            await saveUser(user)
+            return res.status(200).json({'status': "created"})
+        } catch (error) {
+            return res
+                .status(400)
+                .json({ error: error.message || "something went wrong" });
+        }
+    });
 
     router.get("/agent-ids", async (req, res) => {
-        const userService = new UserService();
-        const data = await userService.getFeedIds();
+        const agentService = new AgentService();
+        const data = await agentService.getFeedIds();
         res.json({ data });
     });
 

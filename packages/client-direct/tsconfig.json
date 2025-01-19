@@ -8,15 +8,19 @@
     },
     "include": [
         "src/**/*.ts",
-        "src/models/users.ts"
+        "src/models/agent.ts"
     ],
     "overrides": [
-    {
-      "files": ["*.js"],
-      "extends": ["eslint:recommended"],
-      "parserOptions": {
-        "project": null
-      }
-    }
-  ]
+        {
+            "files": [
+                "*.js"
+            ],
+            "extends": [
+                "eslint:recommended"
+            ],
+            "parserOptions": {
+                "project": null
+            }
+        }
+    ]
 }

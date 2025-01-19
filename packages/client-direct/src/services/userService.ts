@@ -1,51 +1,24 @@
 import { Repository } from "typeorm";
-import { User } from "../models/users";
 import { AppDataSource } from "../config/db";
+import { User } from "../models/user";
 
-class UserService {
-  private userRepository: Repository<User>;
+export class UserService {
+    private userRepository: Repository<User>;
 
-  constructor() {
-    this.userRepository = AppDataSource.getRepository(User);
-  }
-
-  async createUser(userData: Partial<User>) {
-    try {
-        const hasUser = await this.userRepository.findOne({
-        where: { fid: userData.fid }
-        });
-        if(hasUser){
-            return hasUser;
-        }
-
-      const user = this.userRepository.create(userData);
-      return await this.userRepository.save(user);
-    } catch (error) {
-      console.log("Postgresql db query error", error);
-      throw new Error(error?.message);
+    constructor() {
+        this.userRepository = AppDataSource.getRepository(User);
     }
-  }
 
-  async findUserByFid(fid: number) {
-    return await this.userRepository.findOne({
-      where: { fid }
-    });
-  }
+    async createUser(userData: Partial<User>) {
+        const user = this.userRepository.create(userData);
+        return await this.userRepository.save(user);
+    }
 
-  async getFeedIds() {
-    const jsonFidArr =  await this.userRepository.find({
-        select: {
-            fid: true,
-        },
-    }) as unknown as [{fid: string}];
+    async getUserByFid(fid: number) {
+        return await this.userRepository.findOne({ where: { fid } });
+    }
 
-    const fids = jsonFidArr.map(({fid})=>fid)
-    return fids
-  }
-
-  async getAllUsers() {
-    return await this.userRepository.find();
-  }
+    async getAllUsers() {
+        return await this.userRepository.find();
+    }
 }
-
-export default UserService;
