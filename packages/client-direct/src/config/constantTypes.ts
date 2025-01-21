@@ -10,4 +10,5 @@ export enum CHAIN_TYPE{
 //embedded wallets
 export enum WALLET_TYPE{
     PRIVY = 1,
+    TURNKEY = 2,
 }

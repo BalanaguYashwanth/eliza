@@ -5,48 +5,15 @@ import {
     idRegistryABI,
 } from "@farcaster/hub-nodejs";
 import * as bip39 from "bip39";
-import { bytesToHex, createPublicClient, http } from "viem";
-import { optimism } from "viem/chains";
-import { getDeadline, getRegisteredUser } from "./helper";
-import ENV_CONFIG from "../config/env";
-import AgentService from "../services/agentService";
+import { bytesToHex } from "viem";
+import { getRegisteredUser } from "../api/farcaster.action";
+import { farcasterPublicClient, getDeadline } from "../scrapeTwitter/utils";
+import { updateFarcasterProfile } from "../api/farcaster.action";
+import { saveAgent, saveWallet } from "../dbHandler";
+import { createWallet } from "../api/contract.action";
 
-const publicClient = createPublicClient({
-    chain: optimism,
-    transport: http(),
-});
-
-const getRandomImageUrl = () => {
-    return `https://picsum.photos/200/200?random=${Math.floor(Math.random() * 10000)}`;
-};
-
-const updateProfile = async ({ signer_uuid, username, name }) => {
-    try {
-        const url = `${ENV_CONFIG?.FARCASTER_HUB_URL}/user`;
-        const options = {
-            method: "PATCH",
-            headers: {
-                accept: "application/json",
-                "content-type": "application/json",
-                "x-api-key": ENV_CONFIG?.FARCASTER_NEYNAR_API_KEY,
-            },
-            body: JSON.stringify({
-                pfp_url: getRandomImageUrl(),
-                signer_uuid,
-                username,
-                display_name: name,
-            }),
-        };
-
-        const response = await fetch(url, options);
-        const data = await response.json();
-        console.log("profile farcaster data: ", data);
-    } catch (error) {
-        console.log("error: ", error);
-    }
-};
-
-const createFarcasterAccount = async ({ FID, username, name }) => {
+// this code imported from neynar docs
+const createAndSaveFarcasterAccountAndWallet = async ({ FID, username, name }) => {
     try {
         let deadline: any = 0;
         let requested_user_custody_address = "";
@@ -54,31 +21,18 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
 
         const latest_deadline = getDeadline() as any;
         deadline = parseInt(latest_deadline);
-        console.log("\ndeadline: ", deadline);
-
         const mnemonic = bip39.generateMnemonic();
-        console.log("\nGenerated mnemonic: ", mnemonic);
-
         const requestedUserAccount = mnemonicToAccount(mnemonic);
         const requestedUserAccountSigner = new ViemLocalEip712Signer(
             requestedUserAccount
         );
-
-        console.log(
-            "\nrequested_user_custody_address: ",
-            requestedUserAccount.address
-        );
         requested_user_custody_address = requestedUserAccount.address;
-
-        const requestedUserNonce = await publicClient.readContract({
+        const requestedUserNonce = await farcasterPublicClient.readContract({
             address: ID_REGISTRY_ADDRESS,
             abi: idRegistryABI,
             functionName: "nonces",
             args: [requestedUserAccount.address],
         });
-
-        console.log("\nfid: ", parseInt(FID));
-
         const requestedUserSignature =
             (await requestedUserAccountSigner.signTransfer({
                 fid: BigInt(FID),
@@ -87,8 +41,9 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
                 deadline,
             })) as unknown as { value: any };
 
+        //todo - check this signature part do we need to save it in db?
         console.log(
-            "\nsignature: ",
+            "\n todo - check this signature part do we need to save it in db? signature: ",
             bytesToHex(requestedUserSignature?.value),
             "\n"
         );
@@ -102,30 +57,16 @@ const createFarcasterAccount = async ({ FID, username, name }) => {
             username
         );
 
-        const {
-            signer: { signer_uuid, public_key, status, permissions },
-        } = registeredUser;
-        const agentService = new AgentService();
+        const agent = await saveAgent({ registeredUser, FID, username, mnemonic });
+        await updateFarcasterProfile({ signer_uuid: registeredUser?.signer?.signer_uuid, username, name });
 
-        const newUser = await agentService.createAgent({
-            fid: FID,
-            username,
-            mnemonic,
-            signer_uuid,
-            public_key,
-            status,
-            permissions,
-        });
-        console.log("newUser: ", newUser);
+       const {walletName, walletId, walletAddress} = await createWallet()
+       await saveWallet({agentId: agent?.id, walletName, walletId, walletAddress})
 
-        await updateProfile({ signer_uuid, username, name });
-
-        return {
-            ...registeredUser,
-        };
+        return {signer_uuid: registeredUser?.signer?.signer_uuid, walletAddress, agentId: agent?.id};
     } catch (error) {
         console.log("error: ", error);
     }
 };
 
-export default createFarcasterAccount;
+export default createAndSaveFarcasterAccountAndWallet;

@@ -1,11 +1,7 @@
+// Farcaster & Neynar API Requests
 import axios from 'axios'
 import ENV_CONFIG from '../config/env';
-
-export const getDeadline = () => {
-    const now = Math.floor(Date.now() / 1000);
-    const oneHour = 60 * 60;
-    return BigInt(now + oneHour);
-};
+import { getRandomImageUrl } from '../scrapeTwitter/utils';
 
 export const checkAvailableFid = async (fname) => {
     try{
@@ -70,3 +66,30 @@ export const getRegisteredUser = async (deadline, requested_user_custody_address
         console.log(error);
     };
 }
+
+// Updating agent farcaster profile - pic, username, name etc
+export const updateFarcasterProfile = async ({ signer_uuid, username, name }) => {
+    try {
+        const url = `${ENV_CONFIG?.FARCASTER_HUB_URL}/user`;
+        const options = {
+            method: "PATCH",
+            headers: {
+                accept: "application/json",
+                "content-type": "application/json",
+                "x-api-key": ENV_CONFIG?.FARCASTER_NEYNAR_API_KEY,
+            },
+            body: JSON.stringify({
+                pfp_url: getRandomImageUrl(),
+                signer_uuid,
+                username,
+                display_name: name,
+            }),
+        };
+
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log("profile farcaster data: ", data);
+    } catch (error) {
+        console.log("error: ", error);
+    }
+};

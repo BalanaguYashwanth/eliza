@@ -11,8 +11,6 @@ import {
     validateCharacterConfig,
 } from "@ai16z/eliza";
 import { REST, Routes } from "discord.js";
-import createFarcasterAccount from "./createFarcaster/createFarcasterAccount";
-import { checkAvailableFid, getRandomFid } from "./createFarcaster/helper";
 import {
     createEmbeddedWallet,
     hasUserExists,
@@ -21,6 +19,12 @@ import {
 } from "./scrapeTwitter/utils";
 import AgentService from "./services/agentService";
 import { PLATFORM } from "./config/constantTypes";
+import { TokenService } from "./services/tokenServices";
+import { buyToken, createToken, sellToken } from "./api/contract.action";
+import createAndSaveFarcasterAccountAndWallet from "./createFarcaster/createFarcasterAccount";
+import { saveToken } from "./dbHandler";
+import { checkAvailableFid } from "./api/farcaster.action";
+import { getRandomFid } from "./api/farcaster.action";
 
 export function createApiRouter(
     agents: Map<string, AgentRuntime>,
@@ -134,28 +138,24 @@ export function createApiRouter(
             if (!isNameAvailable) {
                 return res.status(400).json({ error: "Name not available" });
             }
-            if (
-                !lowerUsername ||
-                !name ||
-                !language ||
-                !twitterUsername
-            ) {
+            if (!lowerUsername || !name || !language || !twitterUsername) {
                 return res
                     .status(400)
                     .json({ error: "All fields are required" });
             }
-            const farcasterAccount = await createFarcasterAccount({
+            const {signer_uuid, walletAddress, agentId} = await createAndSaveFarcasterAccountAndWallet({
                 FID: fid,
                 username: lowerUsername,
                 name,
             });
-            const signerUuid = farcasterAccount.signer.signer_uuid;
+            const {txHash, mint, listing, mintVault, solVault, seed} = await createToken({solAddress: walletAddress})
+            await saveToken({agentId, txHash, mint, listing, mintVault, solVault, seed, wallet_address: walletAddress})
             runPipelineInWorker({
                 username: lowerUsername,
                 name,
                 language,
                 twitterUsername,
-                signerUuid,
+                signerUuid: signer_uuid,
                 fid,
             });
             res.json({
@@ -170,18 +170,60 @@ export function createApiRouter(
 
     router.post("/create-user", async (req, res) => {
         try {
-            const {fid,  ownerAddress, username} = req.body;
-            if(await hasUserExists(fid)){
-                return res.status(200).json({'status': "already exists"})
+            const { fid, ownerAddress, username } = req.body;
+            if (await hasUserExists(fid)) {
+                return res.status(200).json({ status: "already exists" });
             }
-            const user = await createEmbeddedWallet({type: PLATFORM.FARCASTER, fid, ownerAddress, username});
-            await saveUser(user)
-            return res.status(200).json({'status': "created"})
+            const user = await createEmbeddedWallet({
+                type: PLATFORM.FARCASTER,
+                fid,
+                ownerAddress,
+                username,
+            });
+            await saveUser(user);
+            return res.status(200).json({ status: "created" });
         } catch (error) {
             return res
                 .status(400)
                 .json({ error: error.message || "something went wrong" });
         }
+    });
+
+    router.post("/sell-token", async (req, res) => {
+        const { fid, amount } = req.body;
+        await sellToken({fid, amount})
+        return res.status(200).json({ message: "Token sold successfully" });
+    });
+
+    router.post("/buy-token", async (req, res) => {
+        const { fid, amount } = req.body;
+        await buyToken({fid, amount})
+        return res.status(200).json({ message: "Token bought successfully" });
+    });
+
+    router.post("/create-token", async (req, res) => {
+        const { listing, mint, mint_vault, sol_vault, seed, user_ata } =
+            req.body;
+        const tokenService = new TokenService();
+        const token = await tokenService.createToken({
+            listing,
+            mint,
+            mint_vault,
+            sol_vault,
+            seed,
+            user_ata,
+        });
+        return res.status(200).json({ token });
+    });
+
+    router.post("/update-token-ata", async (req, res) => {
+        const { wallet_address, user_ata } = req.body;
+        const tokenService = new TokenService();
+        const token = await tokenService.updateTokenAta(
+            wallet_address,
+            user_ata
+        );
+        return res.status(200).json({ token });
     });
 
     router.get("/agent-ids", async (req, res) => {
