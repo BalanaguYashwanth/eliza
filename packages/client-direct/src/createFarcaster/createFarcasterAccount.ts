@@ -5,9 +5,10 @@ import {
     idRegistryABI,
 } from "@farcaster/hub-nodejs";
 import * as bip39 from "bip39";
-import { bytesToHex } from "viem";
+import { optimism } from "viem/chains";
+import { bytesToHex, createPublicClient, http } from "viem";
 import { getRegisteredUser } from "../api/farcaster.action";
-import { farcasterPublicClient, getDeadline } from "../scrapeTwitter/utils";
+import { getDeadline } from "../scrapeTwitter/utils";
 import { updateFarcasterProfile } from "../api/farcaster.action";
 import { saveAgent, saveWallet } from "../dbHandler";
 import { createWallet } from "../api/contract.action";
@@ -27,6 +28,10 @@ const createAndSaveFarcasterAccountAndWallet = async ({ FID, username, name }) =
             requestedUserAccount
         );
         requested_user_custody_address = requestedUserAccount.address;
+        const farcasterPublicClient = createPublicClient({
+            chain: optimism,
+            transport: http(),
+        });
         const requestedUserNonce = await farcasterPublicClient.readContract({
             address: ID_REGISTRY_ADDRESS,
             abi: idRegistryABI,

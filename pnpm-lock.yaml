@@ -488,15 +488,36 @@ importers:
       '@ai16z/plugin-image-generation':
         specifier: workspace:*
         version: link:../plugin-image-generation
+      '@coral-xyz/anchor':
+        specifier: 0.30.1
+        version: 0.30.1(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       '@farcaster/hub-nodejs':
         specifier: ^0.12.7
-        version: 0.12.7(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)
+        version: 0.12.7(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       '@privy-io/server-auth':
-        specifier: ^1.17.2
-        version: 1.17.2(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+        specifier: ^1.18.1
+        version: 1.18.1(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))
+      '@project-serum/anchor':
+        specifier: ^0.26.0
+        version: 0.26.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@solana/spl-token':
+        specifier: 0.4.9
+        version: 0.4.9(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(bufferutil@4.0.8)(encoding@0.1.13)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)
+      '@solana/web3.js':
+        specifier: ^1.98.0
+        version: 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       '@supabase/supabase-js':
         specifier: 2.46.2
         version: 2.46.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@turnkey/http':
+        specifier: ^2.17.2
+        version: 2.17.2(encoding@0.1.13)
+      '@turnkey/sdk-server':
+        specifier: ^1.7.2
+        version: 1.7.2(encoding@0.1.13)
+      '@turnkey/solana':
+        specifier: ^1.0.8
+        version: 1.0.8(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       '@types/body-parser':
         specifier: 1.19.5
         version: 1.19.5
@@ -512,9 +533,15 @@ importers:
       bip39:
         specifier: ^3.1.0
         version: 3.1.0
+      bn.js:
+        specifier: ^5.2.1
+        version: 5.2.1
       body-parser:
         specifier: 1.20.3
         version: 1.20.3
+      bs58:
+        specifier: 6.0.0
+        version: 6.0.0
       cors:
         specifier: 2.8.5
         version: 2.8.5
@@ -532,22 +559,22 @@ importers:
         version: 8.13.1
       puppeteer-cluster:
         specifier: ^0.24.0
-        version: 0.24.0(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+        version: 0.24.0(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
       puppeteer-extra-plugin-adblocker:
         specifier: ^2.13.6
-        version: 2.13.6(encoding@0.1.13)(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+        version: 2.13.6(encoding@0.1.13)(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
       puppeteer-extra-plugin-stealth:
         specifier: ^2.11.2
-        version: 2.11.2(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))
+        version: 2.11.2(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
       typeorm:
         specifier: ^0.3.20
-        version: 0.3.20(pg@8.13.1)(sql.js@1.12.0)(ts-node@10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.2))
+        version: 0.3.20(pg@8.13.1)(sql.js@1.12.0)(ts-node@10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.3))
       viem:
         specifier: ^2.21.55
-        version: 2.21.55(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)
+        version: 2.21.55(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       whatwg-url:
         specifier: 7.1.0
         version: 7.1.0
@@ -557,13 +584,13 @@ importers:
         version: 22.10.2
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.2)
+        version: 10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.3)
       tsup:
         specifier: 8.3.5
-        version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
+        version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(typescript@5.7.3)(yaml@2.6.1)
       typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
+        specifier: ^5.7.3
+        version: 5.7.3
 
   packages/client-discord:
     dependencies:
@@ -3176,6 +3203,12 @@ packages:
     resolution: {integrity: sha512-gDXFoF5oHgpriXAaLpxyWBHdCs8Awgf/gLHIo6crv7Aqm937CNdY+x+6hoj7QR5vaJV7MxWSQ0NGFzL3kPbWEQ==}
     engines: {node: '>=11'}
 
+  '@coral-xyz/borsh@0.26.0':
+    resolution: {integrity: sha512-uCZ0xus0CszQPHYfWAqKS5swS1UxvePu83oOF+TWpUkedsNlg6p2p4azxZNSSqwXb9uXMFgxhuMBX9r3Xoi0vQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@solana/web3.js': ^1.68.0
+
   '@coral-xyz/borsh@0.29.0':
     resolution: {integrity: sha512-s7VFVa3a0oqpkuRloWVPdCK7hMbAMY270geZOGfCnaqexrP5dTIpbEHL33req6IYPPJ0hYa71cdvJ1h6V55/oQ==}
     engines: {node: '>=10'}
@@ -4499,6 +4532,26 @@ packages:
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
 
+  '@hpke/chacha20poly1305@1.6.1':
+    resolution: {integrity: sha512-VpuZs9EGZDpvcgLsXsSlpDbrc8MVJCXsEPI/BmvweVtGAjFBimPh4rV7X1Pl2Ch/Ay+cQw929UAt5ennq2RAEA==}
+    engines: {node: '>=16.0.0'}
+
+  '@hpke/common@1.7.1':
+    resolution: {integrity: sha512-/PBcoBsgr/bWBwJfAF1vKFBRa8tFu1g7mSuCDgpjBlRABXvLbWSF07Rb4rI5PlO8Ng16pjgvI7fgHzaLyZ9lmw==}
+    engines: {node: '>=16.0.0'}
+
+  '@hpke/core@1.7.1':
+    resolution: {integrity: sha512-1cup0EARfFY7ZIIcPXBBs+LmEi7s4xghcQWVjtVUgdVzp5ZDrNpfn6iH7UbV26ZvTcinMU+NFaCfUk0G1rvfjA==}
+    engines: {node: '>=16.0.0'}
+
+  '@hpke/dhkem-x25519@1.6.1':
+    resolution: {integrity: sha512-SUZWdplu9tNgVXkjN6+sRbZWVGAM22p1pM5a91ApWzW6G5QLpan5NH5I/Cy7AwiBYDYrzTepuIseaewawt4YWw==}
+    engines: {node: '>=16.0.0'}
+
+  '@hpke/dhkem-x448@1.6.1':
+    resolution: {integrity: sha512-HYOAK8Ff/hlCdTQee8Khgd0A1GFSInGAZsjHImckeb8oDJg6JejDTOARaXULolXsZwPeS/N0UZOH2au4qtfMMg==}
+    engines: {node: '>=16.0.0'}
+
   '@huggingface/jinja@0.2.2':
     resolution: {integrity: sha512-/KPde26khDUIPkTGU82jdtTW9UAuvUTumCAbFs/7giR0SxsvZC4hru51PBvpijH6BVkHcROcvZM/lpy5h1jRRA==}
     engines: {node: '>=18'}
@@ -5177,11 +5230,21 @@ packages:
     resolution: {integrity: sha512-e9EWqCY9b08MF8YSCdEDVYl2NsC1NgcYz086bv2ZI4LF3DhhfgWdFWagpjhn+l+Zd/MTLAM2NCBuBS2oWD1+RQ==}
     engines: {node: '>=19.9.0'}
 
+  '@noble/ciphers@0.5.3':
+    resolution: {integrity: sha512-B0+6IIHiqEs3BPMT0hcRmHvEj2QHOLu+uwt+tqDDeVd0oyVzh7BPrDcPjRnV1PV/5LaknXJJQvOuRGR0zQJz+w==}
+
+  '@noble/ciphers@1.2.1':
+    resolution: {integrity: sha512-rONPWMC7PeExE077uLE4oqWrZ1IvAfz3oH9LibVAcVCopJiA9R62uavnbEzdkVmJYI6M6Zgkbeb07+tWjlq2XA==}
+    engines: {node: ^14.21.3 || >=16}
+
   '@noble/curves@1.2.0':
     resolution: {integrity: sha512-oYclrNgRaM9SsBUBVbb8M6DTV7ZHRTKugureoYEncY5c65HOmRzvSiTE3y5CYaPYJA/GVkrhXEoF0M3Ya9PMnw==}
 
   '@noble/curves@1.3.0':
     resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
+
+  '@noble/curves@1.4.0':
+    resolution: {integrity: sha512-p+4cb332SFCrReJkCYe8Xzm0OWi4Jji5jVdIZRL/PmacmDkFNw6MrrV+gGpiPxLHbV+zKFRywUWbaseT+tZRXg==}
 
   '@noble/curves@1.4.2':
     resolution: {integrity: sha512-TavHr8qycMChk8UwMld0ZDRvatedkzWfH8IiaeGCfymOP5i0hSCozz9vHOL0nkwk7HRMlFnAiKpS2jrUmSybcw==}
@@ -5966,8 +6029,17 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
-  '@privy-io/server-auth@1.17.2':
-    resolution: {integrity: sha512-O45OiVuExy0+77LgbqqKmMZCJk4EHwejclBiFPcY1X53N2I2OCm/qvnq/kjyRwbFyByvmgeCKTo7s6BrfnWrKw==}
+  '@privy-io/server-auth@1.18.1':
+    resolution: {integrity: sha512-XTst8VElbIcLzIU8AOZiDEs5sXdC/FjOVEpfOzVo9qBXnXu3hWsftMj3Wjgubajqbuc05i74N/ZgG1Wja96ong==}
+    peerDependencies:
+      viem: ^2
+    peerDependenciesMeta:
+      viem:
+        optional: true
+
+  '@project-serum/anchor@0.26.0':
+    resolution: {integrity: sha512-Nq+COIjE1135T7qfnOHEn7E0q39bQTgXLFk837/rgFe6Hkew9WML7eHsS+lSYD2p3OJaTiUOHTAq1lHy36oIqQ==}
+    engines: {node: '>=11'}
 
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -7044,6 +7116,9 @@ packages:
   '@solana/web3.js@1.95.8':
     resolution: {integrity: sha512-sBHzNh7dHMrmNS5xPD1d0Xa2QffW/RXaxu/OysRXBfwTp+LYqGGmMtCYYwrHPrN5rjAmJCsQRNAwv4FM0t3B6g==}
 
+  '@solana/web3.js@1.98.0':
+    resolution: {integrity: sha512-nz3Q5OeyGFpFCR+erX2f6JPt3sKhzhYcSycBCSPkWjzSVDh/Rr1FqTVMRe58FKO16/ivTUcuJjeS5MyBvpkbzA==}
+
   '@spruceid/siwe-parser@1.1.3':
     resolution: {integrity: sha512-oQ8PcwDqjGWJvLmvAF2yzd6iniiWxK0Qtz+Dw+gLD/W5zOQJiKIUXwslHOm8VB8OOOKW9vfR3dnPBhHaZDvRsw==}
 
@@ -7363,6 +7438,45 @@ packages:
   '@tufjs/models@2.0.1':
     resolution: {integrity: sha512-92F7/SFyufn4DXsha9+QfKnN03JGqtMFMXgSHbZOo8JG59WkTni7UzAouNQDf7AuP9OAMxVOPQcqG3sB7w+kkg==}
     engines: {node: ^16.14.0 || >=18.0.0}
+
+  '@turnkey/api-key-stamper@0.4.4':
+    resolution: {integrity: sha512-KXvf2yV3OkSrZYEnHSgOwy2XS7Q4+XNwRkgRhDNsiYvgz8KNGLbqXg0/aAlkTIUT7NYODZ3iaGMml0DtyzGeDQ==}
+    engines: {node: '>=18.0.0'}
+
+  '@turnkey/crypto@2.3.0':
+    resolution: {integrity: sha512-RdsSn9nKzr2Ik8TssvQ6qwPuUzUfbV+G0u3XYTaGxAHS8ifWtgvwkiWRLRqy0Y89xh7GaU+OmFjwCO9qwBoWfQ==}
+    engines: {node: '>=18.0.0'}
+
+  '@turnkey/encoding@0.4.0':
+    resolution: {integrity: sha512-ptLgcpWVt34KTPx0omF2QLJrosW6I//clCJ4G2+yngYFCzrdR0yBchV/BOcfME67mK1v3MmauyXl9AAnQTmB4Q==}
+    engines: {node: '>=18.0.0'}
+
+  '@turnkey/http@2.17.2':
+    resolution: {integrity: sha512-0hqh0cZFSI5egkdqawsalzWOfOfHyCtjFHcmpyYJJqWMJnB0hkfFjKfPbgMBsiejZhwttmhqWstWFyhbxo8SNw==}
+    engines: {node: '>=16.0.0'}
+
+  '@turnkey/iframe-stamper@2.1.0':
+    resolution: {integrity: sha512-QdxEfIMi/9wgddBr00pKmWk0QvjZA+D8QKunK0IzlaXsXYuqiSiJVfz2QQnn9HGcQOW5UcEWRAWRaSbwrrqqUA==}
+    engines: {node: '>=18.0.0'}
+
+  '@turnkey/sdk-browser@1.11.1':
+    resolution: {integrity: sha512-BVgnHRrtSgSj2XB3NmofcGIqznkw6raOggj/8vVFv8H0o2saVV8qSOpvDNqo2ELTUvTMaPA/wFNW9sNLYkZJ0A==}
+    engines: {node: '>=18.0.0'}
+
+  '@turnkey/sdk-server@1.7.2':
+    resolution: {integrity: sha512-VdyMuJnJHuyF7qPmNlLIx960WVskVdGT5bA7WFJvZIcysRSxNV5KNihCsHz3Y4OPPFMJAcMIK3dAnlyZZfIKlA==}
+    engines: {node: '>=18.0.0'}
+
+  '@turnkey/solana@1.0.8':
+    resolution: {integrity: sha512-GxhPyPIG6GcSn7LPLIOot6k40W5pqTKCi5mrPheNK1mANnx6P0wSTFbhS8IUW61ag0QF/o2s/5ZC0zi2fpl1YA==}
+    engines: {node: '>=18.0.0'}
+
+  '@turnkey/wallet-stamper@1.0.2':
+    resolution: {integrity: sha512-C4Lup8yN90Qn3HUTCZ0RiRwIWT1y9oqV5wqXmYaBPlaV52DC0N3LJl20Nh3vZu9Had79Rnz/OBm+ZWDAHi5SCg==}
+
+  '@turnkey/webauthn-stamper@0.5.0':
+    resolution: {integrity: sha512-iUbTUwD4f4ibdLy5PWWb7ITEz4S4VAP9/mNjFhoRY3cKVVTDfmykrVTKjPOIHWzDgAmLtgrLvySIIC9ZBVENBw==}
+    engines: {node: '>=18.0.0'}
 
   '@tybys/wasm-util@0.9.0':
     resolution: {integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==}
@@ -9056,6 +9170,9 @@ packages:
 
   bs58check@2.1.2:
     resolution: {integrity: sha512-0TS1jicxdU09dwJMNZtVAfzPi6Q6QeN0pM1Fkzrjn+XYHvzMKPU3pHVpva+769iNVSfIYWf7LJ6WR+BuuMf8cA==}
+
+  bs58check@3.0.1:
+    resolution: {integrity: sha512-hjuuJvoWEybo7Hn/0xOrczQKKEKD63WguEjlhLExYs2wUBcebDC1jDNK17eEAD2lYfw82d5ASC1d7K3SWszjaQ==}
 
   bs58check@4.0.0:
     resolution: {integrity: sha512-FsGDOnFg9aVI9erdriULkd/JjEWONV/lQE5aYziB5PoBsXRind56lh8doIZIc9X4HoxT5x4bLjMWN1/NB8Zp5g==}
@@ -12021,6 +12138,10 @@ packages:
 
   hpack.js@2.1.6:
     resolution: {integrity: sha512-zJxVehUdMGIKsRaNt7apO2Gqp0BdqW5yaiGHXXmbpvxgBYVZnAql+BJb4RO5ad2MgpbZKn5G6nMnegrH1FcNYQ==}
+
+  hpke-js@1.6.1:
+    resolution: {integrity: sha512-lIYfHM7jxUBamBHFxuy7iZbDMgDhIqW/T9DTg1dNnIZbwheZ9p3MWe+5IZXj2p2Jmqcixkh9IdAhjv/H4CMY2A==}
+    engines: {node: '>=16.0.0'}
 
   html-encoding-sniffer@4.0.0:
     resolution: {integrity: sha512-Y22oTqIU4uuPgEemfz7NDJz6OeKf12Lsu+QC+s3BVpda64lTiMYCyGwg5ki4vFxkMwQdeZDl2adZoqUgdFuTgQ==}
@@ -16935,6 +17056,9 @@ packages:
     resolution: {integrity: sha512-QMEp5B7cftE7APOjk5Y6xgrbWu+WkLVQwk8JNjZ8nKRciZaByEW6MubieAiToS7+dwvrjGhH8jRXz3MVd0AYqQ==}
     hasBin: true
 
+  sha256-uint8array@0.10.7:
+    resolution: {integrity: sha512-1Q6JQU4tX9NqsDGodej6pkrUVQVNapLZnvkwIhddH/JqzBZF1fSaxSWNY6sziXBE8aEa2twtGkXUrwzGeZCMpQ==}
+
   sha3@2.1.4:
     resolution: {integrity: sha512-S8cNxbyb0UGUM2VhRD4Poe5N58gJnJsLJ5vC7FYWGUmGhcsj4++WaIOBFVDxlG0W3To6xBuiRh+i0Qp2oNCOtg==}
 
@@ -18173,6 +18297,11 @@ packages:
 
   typescript@5.7.2:
     resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -21312,11 +21441,11 @@ snapshots:
       playwright: 1.48.2
       tldts-experimental: 6.1.68
 
-  '@cliqz/adblocker-puppeteer@1.23.8(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))':
+  '@cliqz/adblocker-puppeteer@1.23.8(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))':
     dependencies:
       '@cliqz/adblocker': 1.34.0
       '@cliqz/adblocker-content': 1.34.0
-      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)
+      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
       tldts-experimental: 5.7.112
 
   '@cliqz/adblocker@1.34.0':
@@ -21501,9 +21630,9 @@ snapshots:
   '@coral-xyz/anchor@0.30.1(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)':
     dependencies:
       '@coral-xyz/anchor-errors': 0.30.1
-      '@coral-xyz/borsh': 0.30.1(@solana/web3.js@1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))
+      '@coral-xyz/borsh': 0.30.1(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))
       '@noble/hashes': 1.6.1
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       bn.js: 5.2.1
       bs58: 4.0.1
       buffer-layout: 1.2.2
@@ -21520,15 +21649,21 @@ snapshots:
       - encoding
       - utf-8-validate
 
+  '@coral-xyz/borsh@0.26.0(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))':
+    dependencies:
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      bn.js: 5.2.1
+      buffer-layout: 1.2.2
+
   '@coral-xyz/borsh@0.29.0(@solana/web3.js@1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))':
     dependencies:
       '@solana/web3.js': 1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       bn.js: 5.2.1
       buffer-layout: 1.2.2
 
-  '@coral-xyz/borsh@0.30.1(@solana/web3.js@1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))':
+  '@coral-xyz/borsh@0.30.1(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))':
     dependencies:
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       bn.js: 5.2.1
       buffer-layout: 1.2.2
 
@@ -23361,23 +23496,23 @@ snapshots:
       eventsource-parser: 1.1.2
       robot3: 0.4.1
 
-  '@farcaster/core@0.15.6(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)':
+  '@farcaster/core@0.15.6(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)':
     dependencies:
       '@faker-js/faker': 7.6.0
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.1
       bs58: 5.0.0
       neverthrow: 6.2.2
-      viem: 2.21.55(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)
+      viem: 2.21.55(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
     transitivePeerDependencies:
       - bufferutil
       - typescript
       - utf-8-validate
       - zod
 
-  '@farcaster/hub-nodejs@0.12.7(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)':
+  '@farcaster/hub-nodejs@0.12.7(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)':
     dependencies:
-      '@farcaster/core': 0.15.6(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)
+      '@farcaster/core': 0.15.6(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       '@grpc/grpc-js': 1.11.3
       '@noble/hashes': 1.6.1
       neverthrow: 6.2.2
@@ -23511,6 +23646,29 @@ snapshots:
   '@hapi/topo@5.1.0':
     dependencies:
       '@hapi/hoek': 9.3.0
+
+  '@hpke/chacha20poly1305@1.6.1':
+    dependencies:
+      '@hpke/common': 1.7.1
+      '@noble/ciphers': 1.2.1
+
+  '@hpke/common@1.7.1': {}
+
+  '@hpke/core@1.7.1':
+    dependencies:
+      '@hpke/common': 1.7.1
+
+  '@hpke/dhkem-x25519@1.6.1':
+    dependencies:
+      '@hpke/common': 1.7.1
+      '@noble/curves': 1.7.0
+      '@noble/hashes': 1.6.1
+
+  '@hpke/dhkem-x448@1.6.1':
+    dependencies:
+      '@hpke/common': 1.7.1
+      '@noble/curves': 1.7.0
+      '@noble/hashes': 1.6.1
 
   '@huggingface/jinja@0.2.2': {}
 
@@ -24078,7 +24236,7 @@ snapshots:
       tslib: 2.8.1
       zod: 3.24.1
 
-  '@lerna/create@8.1.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(encoding@0.1.13)(typescript@5.6.3)':
+  '@lerna/create@8.1.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(encoding@0.1.13)(typescript@5.7.2)':
     dependencies:
       '@npmcli/arborist': 7.5.3
       '@npmcli/package-json': 5.2.0
@@ -24096,7 +24254,7 @@ snapshots:
       console-control-strings: 1.1.0
       conventional-changelog-core: 5.0.1
       conventional-recommended-bump: 7.0.1
-      cosmiconfig: 8.3.6(typescript@5.6.3)
+      cosmiconfig: 8.3.6(typescript@5.7.2)
       dedent: 1.5.3
       execa: 5.0.0
       fs-extra: 11.2.0
@@ -24780,6 +24938,10 @@ snapshots:
       - utf-8-validate
       - zod
 
+  '@noble/ciphers@0.5.3': {}
+
+  '@noble/ciphers@1.2.1': {}
+
   '@noble/curves@1.2.0':
     dependencies:
       '@noble/hashes': 1.3.2
@@ -24787,6 +24949,10 @@ snapshots:
   '@noble/curves@1.3.0':
     dependencies:
       '@noble/hashes': 1.3.3
+
+  '@noble/curves@1.4.0':
+    dependencies:
+      '@noble/hashes': 1.4.0
 
   '@noble/curves@1.4.2':
     dependencies:
@@ -25862,11 +26028,11 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
-  '@privy-io/server-auth@1.17.2(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)':
+  '@privy-io/server-auth@1.18.1(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))':
     dependencies:
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.1
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       canonicalize: 2.0.0
       dotenv: 16.4.7
       jose: 4.15.9
@@ -25875,6 +26041,30 @@ snapshots:
       svix: 1.45.1(encoding@0.1.13)
       ts-case-convert: 2.1.0
       type-fest: 3.13.1
+    optionalDependencies:
+      viem: 2.21.55(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+
+  '@project-serum/anchor@0.26.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@coral-xyz/borsh': 0.26.0(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      base64-js: 1.5.1
+      bn.js: 5.2.1
+      bs58: 4.0.1
+      buffer-layout: 1.2.2
+      camelcase: 6.3.0
+      cross-fetch: 3.1.8(encoding@0.1.13)
+      crypto-hash: 1.3.0
+      eventemitter3: 4.0.7
+      js-sha256: 0.9.0
+      pako: 2.1.0
+      snake-case: 3.0.4
+      superstruct: 0.15.5
+      toml: 3.0.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -25918,7 +26108,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@puppeteer/browsers@0.5.0(typescript@5.7.2)':
+  '@puppeteer/browsers@0.5.0(typescript@5.7.3)':
     dependencies:
       debug: 4.3.4
       extract-zip: 2.0.1
@@ -25929,7 +26119,7 @@ snapshots:
       unbzip2-stream: 1.4.3
       yargs: 17.7.1
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -27034,7 +27224,7 @@ snapshots:
   '@solana/buffer-layout-utils@0.2.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)':
     dependencies:
       '@solana/buffer-layout': 4.0.1
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       bigint-buffer: 1.1.5
       bignumber.js: 9.1.2
     transitivePeerDependencies:
@@ -27055,6 +27245,11 @@ snapshots:
       '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
       typescript: 5.6.3
 
+  '@solana/codecs-core@2.0.0-rc.1(typescript@5.7.3)':
+    dependencies:
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.3)
+      typescript: 5.7.3
+
   '@solana/codecs-data-structures@2.0.0-preview.2':
     dependencies:
       '@solana/codecs-core': 2.0.0-preview.2
@@ -27068,6 +27263,13 @@ snapshots:
       '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
       typescript: 5.6.3
 
+  '@solana/codecs-data-structures@2.0.0-rc.1(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.3)
+      typescript: 5.7.3
+
   '@solana/codecs-numbers@2.0.0-preview.2':
     dependencies:
       '@solana/codecs-core': 2.0.0-preview.2
@@ -27078,6 +27280,12 @@ snapshots:
       '@solana/codecs-core': 2.0.0-rc.1(typescript@5.6.3)
       '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
       typescript: 5.6.3
+
+  '@solana/codecs-numbers@2.0.0-rc.1(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.3)
+      typescript: 5.7.3
 
   '@solana/codecs-strings@2.0.0-preview.2(fastestsmallesttextencoderdecoder@1.0.22)':
     dependencies:
@@ -27093,6 +27301,14 @@ snapshots:
       '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
       fastestsmallesttextencoderdecoder: 1.0.22
       typescript: 5.6.3
+
+  '@solana/codecs-strings@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.3)
+      fastestsmallesttextencoderdecoder: 1.0.22
+      typescript: 5.7.3
 
   '@solana/codecs@2.0.0-preview.2(fastestsmallesttextencoderdecoder@1.0.22)':
     dependencies:
@@ -27115,6 +27331,17 @@ snapshots:
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
 
+  '@solana/codecs@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-data-structures': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-strings': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
+      '@solana/options': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
+      typescript: 5.7.3
+    transitivePeerDependencies:
+      - fastestsmallesttextencoderdecoder
+
   '@solana/errors@2.0.0-preview.2':
     dependencies:
       chalk: 5.3.0
@@ -27125,6 +27352,12 @@ snapshots:
       chalk: 5.3.0
       commander: 12.1.0
       typescript: 5.6.3
+
+  '@solana/errors@2.0.0-rc.1(typescript@5.7.3)':
+    dependencies:
+      chalk: 5.3.0
+      commander: 12.1.0
+      typescript: 5.7.3
 
   '@solana/options@2.0.0-preview.2':
     dependencies:
@@ -27139,6 +27372,17 @@ snapshots:
       '@solana/codecs-strings': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
       '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
       typescript: 5.6.3
+    transitivePeerDependencies:
+      - fastestsmallesttextencoderdecoder
+
+  '@solana/options@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-data-structures': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.3)
+      '@solana/codecs-strings': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.3)
+      typescript: 5.7.3
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
 
@@ -27158,10 +27402,26 @@ snapshots:
       - fastestsmallesttextencoderdecoder
       - typescript
 
+  '@solana/spl-token-group@0.0.7(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+    transitivePeerDependencies:
+      - fastestsmallesttextencoderdecoder
+      - typescript
+
   '@solana/spl-token-metadata@0.1.6(@solana/web3.js@1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)':
     dependencies:
       '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
       '@solana/web3.js': 1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+    transitivePeerDependencies:
+      - fastestsmallesttextencoderdecoder
+      - typescript
+
+  '@solana/spl-token-metadata@0.1.6(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
       - typescript
@@ -27188,6 +27448,21 @@ snapshots:
       '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
       '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
       '@solana/web3.js': 1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      buffer: 6.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - fastestsmallesttextencoderdecoder
+      - typescript
+      - utf-8-validate
+
+  '@solana/spl-token@0.4.9(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(bufferutil@4.0.8)(encoding@0.1.13)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@solana/buffer-layout': 4.0.1
+      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
+      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       buffer: 6.0.3
     transitivePeerDependencies:
       - bufferutil
@@ -27236,6 +27511,28 @@ snapshots:
       - utf-8-validate
 
   '@solana/web3.js@1.95.8(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@babel/runtime': 7.26.0
+      '@noble/curves': 1.7.0
+      '@noble/hashes': 1.6.1
+      '@solana/buffer-layout': 4.0.1
+      agentkeepalive: 4.5.0
+      bigint-buffer: 1.1.5
+      bn.js: 5.2.1
+      borsh: 0.7.0
+      bs58: 4.0.1
+      buffer: 6.0.3
+      fast-stable-stringify: 1.0.0
+      jayson: 4.1.3(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      node-fetch: 2.7.0(encoding@0.1.13)
+      rpc-websockets: 9.0.4
+      superstruct: 2.0.2
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+
+  '@solana/web3.js@1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@noble/curves': 1.7.0
@@ -27627,6 +27924,94 @@ snapshots:
     dependencies:
       '@tufjs/canonical-json': 2.0.0
       minimatch: 9.0.5
+
+  '@turnkey/api-key-stamper@0.4.4':
+    dependencies:
+      '@noble/curves': 1.7.0
+      '@turnkey/encoding': 0.4.0
+      sha256-uint8array: 0.10.7
+
+  '@turnkey/crypto@2.3.0':
+    dependencies:
+      '@noble/ciphers': 0.5.3
+      '@noble/curves': 1.4.0
+      '@noble/hashes': 1.4.0
+      '@turnkey/encoding': 0.4.0
+      bs58: 5.0.0
+      bs58check: 3.0.1
+
+  '@turnkey/encoding@0.4.0': {}
+
+  '@turnkey/http@2.17.2(encoding@0.1.13)':
+    dependencies:
+      '@turnkey/api-key-stamper': 0.4.4
+      '@turnkey/encoding': 0.4.0
+      '@turnkey/webauthn-stamper': 0.5.0
+      cross-fetch: 3.1.8(encoding@0.1.13)
+    transitivePeerDependencies:
+      - encoding
+
+  '@turnkey/iframe-stamper@2.1.0': {}
+
+  '@turnkey/sdk-browser@1.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)':
+    dependencies:
+      '@turnkey/api-key-stamper': 0.4.4
+      '@turnkey/crypto': 2.3.0
+      '@turnkey/encoding': 0.4.0
+      '@turnkey/http': 2.17.2(encoding@0.1.13)
+      '@turnkey/iframe-stamper': 2.1.0
+      '@turnkey/wallet-stamper': 1.0.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
+      '@turnkey/webauthn-stamper': 0.5.0
+      bs58check: 3.0.1
+      buffer: 6.0.3
+      cross-fetch: 3.1.8(encoding@0.1.13)
+      elliptic: 6.6.1
+      hpke-js: 1.6.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@turnkey/sdk-server@1.7.2(encoding@0.1.13)':
+    dependencies:
+      '@turnkey/api-key-stamper': 0.4.4
+      '@turnkey/http': 2.17.2(encoding@0.1.13)
+      buffer: 6.0.3
+      cross-fetch: 3.1.8(encoding@0.1.13)
+      elliptic: 6.6.1
+    transitivePeerDependencies:
+      - encoding
+
+  '@turnkey/solana@1.0.8(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)':
+    dependencies:
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@turnkey/http': 2.17.2(encoding@0.1.13)
+      '@turnkey/sdk-browser': 1.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
+      '@turnkey/sdk-server': 1.7.2(encoding@0.1.13)
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@turnkey/wallet-stamper@1.0.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)':
+    dependencies:
+      '@turnkey/crypto': 2.3.0
+      '@turnkey/encoding': 0.4.0
+    optionalDependencies:
+      viem: 2.21.55(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@turnkey/webauthn-stamper@0.5.0':
+    dependencies:
+      sha256-uint8array: 0.10.7
 
   '@tybys/wasm-util@0.9.0':
     dependencies:
@@ -29003,9 +29388,9 @@ snapshots:
       typescript: 5.6.3
       zod: 3.24.1
 
-  abitype@1.0.7(typescript@5.7.2)(zod@3.24.1):
+  abitype@1.0.7(typescript@5.7.3)(zod@3.24.1):
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
       zod: 3.24.1
 
   abort-controller@3.0.0:
@@ -30035,6 +30420,11 @@ snapshots:
       create-hash: 1.2.0
       safe-buffer: 5.2.1
 
+  bs58check@3.0.1:
+    dependencies:
+      '@noble/hashes': 1.6.1
+      bs58: 5.0.0
+
   bs58check@4.0.0:
     dependencies:
       '@noble/hashes': 1.6.1
@@ -30897,6 +31287,15 @@ snapshots:
       path-type: 4.0.0
     optionalDependencies:
       typescript: 5.6.3
+
+  cosmiconfig@8.3.6(typescript@5.7.2):
+    dependencies:
+      import-fresh: 3.3.0
+      js-yaml: 4.1.0
+      parse-json: 5.2.0
+      path-type: 4.0.0
+    optionalDependencies:
+      typescript: 5.7.2
 
   crc-32@1.2.2: {}
 
@@ -33892,6 +34291,15 @@ snapshots:
       readable-stream: 2.3.8
       wbuf: 1.7.3
 
+  hpke-js@1.6.1:
+    dependencies:
+      '@hpke/chacha20poly1305': 1.6.1
+      '@hpke/common': 1.7.1
+      '@hpke/core': 1.7.1
+      '@hpke/dhkem-x25519': 1.6.1
+      '@hpke/dhkem-x448': 1.6.1
+      '@noble/hashes': 1.6.1
+
   html-encoding-sniffer@4.0.0:
     dependencies:
       whatwg-encoding: 3.1.1
@@ -35551,7 +35959,7 @@ snapshots:
 
   lerna@8.1.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(encoding@0.1.13):
     dependencies:
-      '@lerna/create': 8.1.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(encoding@0.1.13)(typescript@5.6.3)
+      '@lerna/create': 8.1.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(encoding@0.1.13)(typescript@5.7.2)
       '@npmcli/arborist': 7.5.3
       '@npmcli/package-json': 5.2.0
       '@npmcli/run-script': 8.1.0
@@ -35569,7 +35977,7 @@ snapshots:
       conventional-changelog-angular: 7.0.0
       conventional-changelog-core: 5.0.1
       conventional-recommended-bump: 7.0.1
-      cosmiconfig: 8.3.6(typescript@5.6.3)
+      cosmiconfig: 8.3.6(typescript@5.7.2)
       dedent: 1.5.3
       envinfo: 7.13.0
       execa: 5.0.0
@@ -35620,7 +36028,7 @@ snapshots:
       strong-log-transformer: 2.1.0
       tar: 6.2.1
       temp-dir: 1.0.0
-      typescript: 5.6.3
+      typescript: 5.7.2
       upath: 2.0.1
       uuid: 10.0.0
       validate-npm-package-license: 3.0.4
@@ -37658,17 +38066,17 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  ox@0.1.2(typescript@5.7.2)(zod@3.24.1):
+  ox@0.1.2(typescript@5.7.3)(zod@3.24.1):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.1
       '@scure/bip32': 1.6.0
       '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.7.2)(zod@3.24.1)
+      abitype: 1.0.7(typescript@5.7.3)(zod@3.24.1)
       eventemitter3: 5.0.1
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - zod
 
@@ -39098,10 +39506,10 @@ snapshots:
     dependencies:
       escape-goat: 4.0.0
 
-  puppeteer-cluster@0.24.0(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)):
+  puppeteer-cluster@0.24.0(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)):
     dependencies:
       debug: 4.4.0
-      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)
+      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - supports-color
 
@@ -39126,9 +39534,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10):
+  puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10):
     dependencies:
-      '@puppeteer/browsers': 0.5.0(typescript@5.7.2)
+      '@puppeteer/browsers': 0.5.0(typescript@5.7.3)
       chromium-bidi: 0.4.7(devtools-protocol@0.0.1107588)
       cross-fetch: 3.1.5(encoding@0.1.13)
       debug: 4.3.4
@@ -39140,23 +39548,23 @@ snapshots:
       unbzip2-stream: 1.4.3
       ws: 8.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - bufferutil
       - encoding
       - supports-color
       - utf-8-validate
 
-  puppeteer-extra-plugin-adblocker@2.13.6(encoding@0.1.13)(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)):
+  puppeteer-extra-plugin-adblocker@2.13.6(encoding@0.1.13)(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)):
     dependencies:
-      '@cliqz/adblocker-puppeteer': 1.23.8(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+      '@cliqz/adblocker-puppeteer': 1.23.8(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
       debug: 4.4.0
       node-fetch: 2.7.0(encoding@0.1.13)
-      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))
+      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))
     optionalDependencies:
-      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)
-      puppeteer-core: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)
-      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
+      puppeteer-core: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
+      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
     transitivePeerDependencies:
       - encoding
       - playwright-extra
@@ -39180,35 +39588,35 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  puppeteer-extra-plugin-stealth@2.11.2(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))):
+  puppeteer-extra-plugin-stealth@2.11.2(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))):
     dependencies:
       debug: 4.4.0
-      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))
-      puppeteer-extra-plugin-user-preferences: 2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))
+      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))
+      puppeteer-extra-plugin-user-preferences: 2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))
     optionalDependencies:
-      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra-plugin-user-data-dir@2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))):
+  puppeteer-extra-plugin-user-data-dir@2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))):
     dependencies:
       debug: 4.4.0
       fs-extra: 10.1.0
-      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))
+      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))
       rimraf: 3.0.2
     optionalDependencies:
-      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra-plugin-user-preferences@2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))):
+  puppeteer-extra-plugin-user-preferences@2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))):
     dependencies:
       debug: 4.4.0
       deepmerge: 4.3.1
-      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))
-      puppeteer-extra-plugin-user-data-dir: 2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)))
+      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))
+      puppeteer-extra-plugin-user-data-dir: 2.4.1(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)))
     optionalDependencies:
-      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
     transitivePeerDependencies:
       - supports-color
 
@@ -39222,13 +39630,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra-plugin@3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))):
+  puppeteer-extra-plugin@3.2.3(puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))):
     dependencies:
       '@types/debug': 4.1.12
       debug: 4.4.0
       merge-deep: 3.0.3
     optionalDependencies:
-      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))
+      puppeteer-extra: 3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))
     transitivePeerDependencies:
       - supports-color
 
@@ -39243,14 +39651,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)):
+  puppeteer-extra@3.3.6(puppeteer-core@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)):
     dependencies:
       '@types/debug': 4.1.12
       debug: 4.4.0
       deepmerge: 4.3.1
     optionalDependencies:
-      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)
-      puppeteer-core: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)
+      puppeteer: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
+      puppeteer-core: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -39270,14 +39678,14 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10):
+  puppeteer@19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10):
     dependencies:
-      '@puppeteer/browsers': 0.5.0(typescript@5.7.2)
+      '@puppeteer/browsers': 0.5.0(typescript@5.7.3)
       cosmiconfig: 8.1.3
       https-proxy-agent: 5.0.1
       progress: 2.0.3
       proxy-from-env: 1.1.0
-      puppeteer-core: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.2)(utf-8-validate@5.0.10)
+      puppeteer-core: 19.11.1(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.7.3)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -40293,6 +40701,8 @@ snapshots:
     dependencies:
       inherits: 2.0.4
       safe-buffer: 5.2.1
+
+  sha256-uint8array@0.10.7: {}
 
   sha3@2.1.4:
     dependencies:
@@ -41444,7 +41854,7 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.10.1(@swc/helpers@0.5.15)
 
-  ts-node@10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.2):
+  ts-node@10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -41458,7 +41868,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.7.2
+      typescript: 5.7.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optionalDependencies:
@@ -41532,7 +41942,7 @@ snapshots:
       - tsx
       - yaml
 
-  tsup@8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1):
+  tsup@8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(typescript@5.7.3)(yaml@2.6.1):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.24.0)
       cac: 6.7.14
@@ -41553,7 +41963,7 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.10.1(@swc/helpers@0.5.15)
       postcss: 8.4.49
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - jiti
       - supports-color
@@ -41716,7 +42126,7 @@ snapshots:
 
   typeforce@1.18.0: {}
 
-  typeorm@0.3.20(pg@8.13.1)(sql.js@1.12.0)(ts-node@10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.2)):
+  typeorm@0.3.20(pg@8.13.1)(sql.js@1.12.0)(ts-node@10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.3)):
     dependencies:
       '@sqltools/formatter': 1.2.5
       app-root-path: 3.1.0
@@ -41736,7 +42146,7 @@ snapshots:
     optionalDependencies:
       pg: 8.13.1
       sql.js: 1.12.0
-      ts-node: 10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.2)
+      ts-node: 10.9.2(@swc/core@1.10.1(@swc/helpers@0.5.15))(@types/node@22.10.2)(typescript@5.7.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -41754,6 +42164,8 @@ snapshots:
   typescript@5.6.3: {}
 
   typescript@5.7.2: {}
+
+  typescript@5.7.3: {}
 
   u3@0.1.1: {}
 
@@ -42227,19 +42639,19 @@ snapshots:
       - utf-8-validate
       - zod
 
-  viem@2.21.55(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1):
+  viem@2.21.55(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1):
     dependencies:
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.1
       '@scure/bip32': 1.6.0
       '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.7.2)(zod@3.24.1)
+      abitype: 1.0.7(typescript@5.7.3)(zod@3.24.1)
       isows: 1.0.6(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))
-      ox: 0.1.2(typescript@5.7.2)(zod@3.24.1)
+      ox: 0.1.2(typescript@5.7.3)(zod@3.24.1)
       webauthn-p256: 0.0.10
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate

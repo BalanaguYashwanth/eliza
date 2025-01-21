@@ -133,11 +133,6 @@ export const getRandomImageUrl = () => {
     return `https://picsum.photos/200/200?random=${Math.floor(Math.random() * 10000)}`;
 };
 
-export const farcasterPublicClient = createPublicClient({
-    chain: optimism,
-    transport: http(),
-});
-
 export const getDeadline = () => {
     const now = Math.floor(Date.now() / 1000);
     const oneHour = 60 * 60;
