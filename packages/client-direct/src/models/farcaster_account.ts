@@ -1,9 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, ManyToOne } from "typeorm";
+import { User } from "./user";
 
-@Entity("agent")
-export class Agent extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+@Entity("farcaster_account")
+export class FarcasterAccount extends BaseEntity {
+    @PrimaryGeneratedColumn("increment", { type: "bigint" })
+    pk: bigint;
+
+    @ManyToOne(() => User, (user) => user.pk, {
+        onDelete: "CASCADE",
+    })
+    @JoinColumn({ name: "user_fk" })
+    user_fk: User;
 
     @Column({ nullable: false, unique: true })
     fid: number;
@@ -19,9 +26,6 @@ export class Agent extends BaseEntity {
 
     @Column({ nullable: false, unique: true })
     public_key: string;
-
-    @Column({ nullable: false })
-    status: string;
 
     @Column({ type: "text", array: true, nullable: false })
     permissions: string[];

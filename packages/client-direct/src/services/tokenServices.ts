@@ -1,7 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../config/db";
 import { Token } from "../models/token";
-import { Agent } from "../models/agent";
 
 export class TokenService {
     private tokenRepository: Repository<Token>;
@@ -11,8 +10,7 @@ export class TokenService {
     }
 
     async createToken(tokenData: Partial<Token>) {
-
-        if(await this.getTokenByListing(tokenData.listing)) {
+        if (await this.getTokenByListing(tokenData.listing)) {
             throw new Error("Token already exists");
         }
 
@@ -25,7 +23,10 @@ export class TokenService {
     }
 
     async updateTokenAta(wallet_address: string, user_ata: string) {
-        return await this.tokenRepository.update({ wallet_address }, { user_ata });
+        return await this.tokenRepository.update(
+            { wallet_address },
+            { user_ata }
+        );
     }
 
     async getAllTokens() {
@@ -33,10 +34,15 @@ export class TokenService {
     }
 
     async getTokenByWalletAddress(wallet_address: string) {
-        return await this.tokenRepository.findOne({ where: { wallet_address } });
+        return await this.tokenRepository.findOne({
+            where: { wallet_address },
+        });
     }
 
-    async getTokenByAgentId(agent: Agent) {
-        return await this.tokenRepository.findOne({where: {agent_id: agent}})
+    async getTokenByFarcasterAccountId(farcasterAccountFk) {
+        return await this.tokenRepository.findOne({
+            // pass pk of farcaster account
+            where: { farcaster_account_fk: BigInt(farcasterAccountFk) as any },
+        });
     }
 }

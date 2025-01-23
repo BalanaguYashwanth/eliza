@@ -10,11 +10,10 @@ import { bytesToHex, createPublicClient, http } from "viem";
 import { getRegisteredUser } from "../api/farcaster.action";
 import { getDeadline } from "../scrapeTwitter/utils";
 import { updateFarcasterProfile } from "../api/farcaster.action";
-import { saveAgent, saveWallet } from "../dbHandler";
-import { createWallet } from "../api/contract.action";
+import { saveAgent } from "../dbHandler";
 
 // this code imported from neynar docs
-const createAndSaveFarcasterAccountAndWallet = async ({ FID, username, name }) => {
+const createAndSaveFarcasterAccountAndWallet = async ({ FID, username, name, user_fk }) => {
     try {
         let deadline: any = 0;
         let requested_user_custody_address = "";
@@ -62,13 +61,11 @@ const createAndSaveFarcasterAccountAndWallet = async ({ FID, username, name }) =
             username
         );
 
-        const agent = await saveAgent({ registeredUser, FID, username, mnemonic });
+        const agent = await saveAgent({ registeredUser, FID, username, mnemonic, user_fk });
         await updateFarcasterProfile({ signer_uuid: registeredUser?.signer?.signer_uuid, username, name });
 
-       const {walletName, walletId, walletAddress} = await createWallet()
-       await saveWallet({agentId: agent?.id, walletName, walletId, walletAddress})
 
-        return {signer_uuid: registeredUser?.signer?.signer_uuid, walletAddress, agentId: agent?.id};
+        return {signer_uuid: registeredUser?.signer?.signer_uuid, agentId: agent?.pk};
     } catch (error) {
         console.log("error: ", error);
     }

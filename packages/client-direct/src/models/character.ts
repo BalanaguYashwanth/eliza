@@ -2,8 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 @Entity("character")
 export class Character extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("increment", { type: "bigint" })
+    pk: bigint;
 
     @Column({ type: "jsonb", nullable: false })
     data: object;

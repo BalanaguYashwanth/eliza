@@ -1,14 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from "typeorm";
-import { Agent } from "./agent";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    BaseEntity,
+    ManyToOne,
+    JoinColumn,
+} from "typeorm";
+import { FarcasterAccount } from "./farcaster_account";
 
-@Entity("agent_token")
+@Entity("token")
 export class Token extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("increment", { type: "bigint" })
+    pk: bigint;
 
-    @ManyToOne(() => Agent, (agent) => agent.id, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "agent_id" })
-    agent_id: Agent;
+    @ManyToOne(() => FarcasterAccount, (farcasterAccount) => farcasterAccount.pk, {
+        onDelete: "CASCADE",
+    })
+    @JoinColumn({ name: "farcaster_account_fk" })
+    farcaster_account_fk: FarcasterAccount;
 
     @Column({ nullable: false, unique: true })
     listing: string;
@@ -34,7 +43,7 @@ export class Token extends BaseEntity {
     @Column({ nullable: false })
     transaction_hash: string;
 
-    @Column({ nullable: false, unique: true })
+    @Column({ nullable: true })
     token_name: string;
 
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })

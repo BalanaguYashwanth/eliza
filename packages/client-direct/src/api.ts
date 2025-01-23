@@ -12,19 +12,24 @@ import {
 } from "@ai16z/eliza";
 import { REST, Routes } from "discord.js";
 import {
-    createEmbeddedWallet,
+    getOwnerWalletAddress,
     hasUserExists,
     runPipelineInWorker,
-    saveUser,
 } from "./scrapeTwitter/utils";
-import AgentService from "./services/agentService";
-import { PLATFORM } from "./config/constantTypes";
+import { OWNER_TYPE } from "./config/constantTypes";
 import { TokenService } from "./services/tokenServices";
-import { buyToken, createToken, sellToken } from "./api/contract.action";
+import {
+    buyToken,
+    createToken,
+    createWallet,
+    sellToken,
+    transferSol,
+} from "./api/contract.action";
 import createAndSaveFarcasterAccountAndWallet from "./createFarcaster/createFarcasterAccount";
-import { saveToken } from "./dbHandler";
+import { getUserByFid, getWalletByOwnerId, saveToken, saveUser, saveWallet } from "./dbHandler";
 import { checkAvailableFid } from "./api/farcaster.action";
 import { getRandomFid } from "./api/farcaster.action";
+import FarcasterAccountService from "./services/farcasterAccountService";
 
 export function createApiRouter(
     agents: Map<string, AgentRuntime>,
@@ -129,10 +134,38 @@ export function createApiRouter(
         }
     });
 
+    const createAndSaveWallet = async ({ownerFk, ownerType}: {ownerFk: bigint, ownerType: OWNER_TYPE}) => {
+        const { walletName, walletId, walletAddress } = await createWallet();
+        await saveWallet({  ownerFk, ownerType, walletName, walletId, walletAddress });
+        return {walletName, walletId, walletAddress};
+    }
+
+
+    const loadBalanceIntoWallet = async ({recipientWalletAddress, senderWalletAddress, amount}: {recipientWalletAddress: string, senderWalletAddress: string, amount: number}) => {
+        await transferSol({senderWalletAddress, recipientWalletAddress, amount});
+    }
+
+    router.get("/wallet/:id", async (req, res) => {
+        if(!req.params.id || !Number(req.params.id)) {
+            return res.status(400).json({ error: "Fid is required" });
+        }
+        const id = Number(req.params.id);
+        const user = await getUserByFid(id);
+        console.log(user);
+        if (!user?.pk) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const wallet = await getWalletByOwnerId(user?.pk);
+        res.json({ walletAddress: wallet?.wallet_address });
+    });
+
     router.post("/launch-agent", async (req, res) => {
         try {
-            const { username, name, language, twitterUsername } = req.body;
+            const { username, name, language, twitterUsername: unOrganizedTwitterUsername, ownerFid } = req.body;
+            const twitterUsername = unOrganizedTwitterUsername?.toLowerCase();
+            const {ownerWalletAddress, userPk} = await getOwnerWalletAddress({fid: ownerFid});
             const lowerUsername = username?.toLowerCase();
+
             const fid = await getRandomFid();
             const isNameAvailable = await checkAvailableFid(lowerUsername);
             if (!isNameAvailable) {
@@ -143,13 +176,26 @@ export function createApiRouter(
                     .status(400)
                     .json({ error: "All fields are required" });
             }
-            const {signer_uuid, walletAddress, agentId} = await createAndSaveFarcasterAccountAndWallet({
-                FID: fid,
-                username: lowerUsername,
-                name,
+            const { signer_uuid, agentId } = await createAndSaveFarcasterAccountAndWallet({
+                    FID: fid,
+                    username: lowerUsername,
+                    name,
+                    user_fk: BigInt(userPk)
+                });
+            const wallet = await createAndSaveWallet({ownerFk: BigInt(agentId), ownerType: OWNER_TYPE.FARCASER_ACCOUNT});
+            await loadBalanceIntoWallet({recipientWalletAddress: wallet.walletAddress, senderWalletAddress: ownerWalletAddress, amount: 0.1});
+            const { txHash, mint, listing, mintVault, solVault, seed } =
+                await createToken({ solAddress: wallet.walletAddress });
+            await saveToken({
+                farcasterAccountFk: BigInt(agentId),
+                txHash,
+                mint,
+                listing,
+                mintVault,
+                solVault,
+                seed,
+                walletAddress: wallet.walletAddress,
             });
-            const {txHash, mint, listing, mintVault, solVault, seed} = await createToken({solAddress: walletAddress})
-            await saveToken({agentId, txHash, mint, listing, mintVault, solVault, seed, wallet_address: walletAddress})
             runPipelineInWorker({
                 username: lowerUsername,
                 name,
@@ -170,17 +216,13 @@ export function createApiRouter(
 
     router.post("/create-user", async (req, res) => {
         try {
-            const { fid, ownerAddress, username } = req.body;
+            const { fid, username } = req.body;
             if (await hasUserExists(fid)) {
                 return res.status(200).json({ status: "already exists" });
             }
-            const user = await createEmbeddedWallet({
-                type: PLATFORM.FARCASTER,
-                fid,
-                ownerAddress,
-                username,
-            });
-            await saveUser(user);
+            const { walletName, walletId, walletAddress } = await createWallet();
+            const user = await saveUser({ fid, username });
+            await saveWallet({ ownerFk: user.pk, ownerType: OWNER_TYPE.USER, walletName, walletId, walletAddress });
             return res.status(200).json({ status: "created" });
         } catch (error) {
             return res
@@ -191,13 +233,13 @@ export function createApiRouter(
 
     router.post("/sell-token", async (req, res) => {
         const { fid, amount } = req.body;
-        await sellToken({fid, amount})
+        await sellToken({ fid, amount });
         return res.status(200).json({ message: "Token sold successfully" });
     });
 
     router.post("/buy-token", async (req, res) => {
-        const { fid, amount } = req.body;
-        await buyToken({fid, amount})
+        const { agentFid, ownerFid, amount } = req.body;
+        await buyToken({ agentFid, ownerFid, amount });
         return res.status(200).json({ message: "Token bought successfully" });
     });
 
@@ -227,8 +269,8 @@ export function createApiRouter(
     });
 
     router.get("/agent-ids", async (req, res) => {
-        const agentService = new AgentService();
-        const data = await agentService.getFeedIds();
+        const farcasterAccountService = new FarcasterAccountService();
+        const data = await farcasterAccountService.getFarcasterAccountIds();
         res.json({ data });
     });
 

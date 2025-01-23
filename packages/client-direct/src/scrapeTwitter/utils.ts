@@ -5,9 +5,8 @@ import { addAgent } from "../api/external.action";
 import { agentTemplate } from "../common/agentTemplate";
 import { PrivyClient } from "@privy-io/server-auth";
 import { UserService } from "../services/userService";
-import { CHAIN_TYPE, WALLET_TYPE } from "../config/constantTypes";
-import { optimism } from "viem/chains";
-import { createPublicClient } from "viem";
+import { getWalletByOwnerId } from "../dbHandler";
+import { getUserByFid } from "../dbHandler";
 
 export const getJsonl = (jsonlFilePath: string) => {
     const data = fs?.readFileSync(jsonlFilePath, "utf8") as any;
@@ -84,50 +83,6 @@ export const hasUserExists = async (fid: number) => {
     return user?.fid ? true : false;
 };
 
-export const saveUser = async (user) => {
-    try {
-        const userPrivyWallet = new UserService();
-        await userPrivyWallet.createUser(user);
-    } catch (error) {
-        console.log("saveUser error", error?.message);
-        throw new Error(`Error occured`);
-    }
-};
-
-export const createEmbeddedWallet = async ({
-    type,
-    username,
-    fid,
-    ownerAddress,
-}) => {
-    const privyUser = (await privy.importUser({
-        linkedAccounts: [
-            {
-                type,
-                fid,
-                ownerAddress,
-                username,
-            },
-        ],
-        createSolanaWallet: true,
-        customMetadata: {
-            username,
-            isVerified: true,
-        },
-    })) as any;
-
-    const [userDetails, WalletDetails] = privyUser?.linkedAccounts || [{}, {}];
-
-    return {
-        username,
-        wallet_address: WalletDetails?.address || userDetails?.address,
-        wallet_id: privyUser?.id,
-        chain_type: CHAIN_TYPE.SOLANA,
-        fid,
-        chain_id: WalletDetails?.chainId || userDetails?.chainId,
-        wallet_type: WALLET_TYPE?.PRIVY,
-    };
-};
 
 export const getRandomImageUrl = () => {
     return `https://picsum.photos/200/200?random=${Math.floor(Math.random() * 10000)}`;
@@ -140,3 +95,11 @@ export const getDeadline = () => {
 };
 
 export const solToLamports = (sol: number) => sol * 1_000_000_000;
+
+
+export const getOwnerWalletAddress = async ({fid}: {fid: number}) => {
+    const user = await getUserByFid(fid);
+    const ownerWallet = await getWalletByOwnerId(user?.pk);
+    const ownerWalletAddress = ownerWallet?.wallet_address;
+    return {ownerWalletAddress, userPk: user?.pk};
+}

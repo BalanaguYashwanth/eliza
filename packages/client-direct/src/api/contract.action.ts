@@ -13,9 +13,9 @@ import { Turnkey } from "@turnkey/sdk-server";
 import ENV_CONFIG from "../config/env";
 import { TurnkeySigner } from "@turnkey/solana";
 import { TurnkeyActivityError } from "@turnkey/http";
-import AgentService from "../services/agentService";
 import { TokenService } from "../services/tokenServices";
-import { solToLamports } from "../scrapeTwitter/utils";
+import { getOwnerWalletAddress, solToLamports } from "../scrapeTwitter/utils";
+import FarcasterAccountService from "../services/farcasterAccountService";
 
 const { Program } = anchor;
 
@@ -87,6 +87,7 @@ export async function createWallet() {
         });
     }
 }
+
 const program = new Program(IDL as any, turnkeySigner as any) as any;
 const connection = solanaNetwork.connect();
 // const solAddress = "Ad75LBmPLWphWV34fQumh64Bxq9wCaYx7c2FKigBiNwW";
@@ -137,17 +138,62 @@ export async function createToken({ solAddress }: { solAddress: string }) {
 
     await turnkeySigner.addSignature(transferTx, solAddress);
     const txHash = await solanaNetwork.broadcast(connection, transferTx);
-    return {txHash, mint, listing, mintVault, solVault, seed}
+    return { txHash, mint, listing, mintVault, solVault, seed };
 }
 
+export async function buyToken({ agentFid, ownerFid, amount }) {
+    const farcasterAccountService = new FarcasterAccountService();
+    const farcasterAccountData = await farcasterAccountService.findFarcasterAccountByFid(agentFid);
+    const {ownerWalletAddress} = await getOwnerWalletAddress({fid: ownerFid});
+    const buyerPublicKey = new PublicKey(ownerWalletAddress);
+    if (!farcasterAccountData?.pk) {
+        throw new Error("Account not found");
+    }
+    const tokenService = new TokenService();
+    const agentToken = await tokenService.getTokenByFarcasterAccountId(
+        farcasterAccountData?.pk as any
+    );
+    const { mint, listing, mint_vault, sol_vault } = agentToken;
+    const userAta = getAssociatedTokenAddressSync(
+        new PublicKey(mint),
+        buyerPublicKey,
+        false,
+        TOKEN_PROGRAM_ID
+    );
 
-export async function buyToken({fid, amount}){
-    const agentService = new AgentService()
-    const agentData = await agentService.findAgentByFid(fid)
-    const tokenService = new TokenService()
-    const agentToken = await tokenService.getTokenByAgentId(agentData)
+    const transferTx = new Transaction().add(
+        await program.methods
+            .buy(new BN(solToLamports(Number(amount))))
+            .accounts({
+                user: buyerPublicKey,
+                mint: new PublicKey(mint),
+                listing: new PublicKey(listing),
+                mintVault: new PublicKey(mint_vault),
+                solVault: new PublicKey(sol_vault),
+                userAta,
+                tokenProgram: TOKEN_PROGRAM_ID,
+                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+                systemProgram: SystemProgram.programId,
+            })
+            .instruction()
+    );
 
-    const { mint, listing, mint_vault, sol_vault} = await agentToken
+    transferTx.recentBlockhash = await solanaNetwork.recentBlockhash();
+    transferTx.feePayer = buyerPublicKey;
+
+    await turnkeySigner.addSignature(transferTx, ownerWalletAddress);
+    const txHash = await solanaNetwork.broadcast(connection, transferTx);
+    console.log("buyToken--txhash---", txHash);
+}
+
+export async function sellToken({ fid, amount }) {
+    const farcasterAccountService = new FarcasterAccountService();
+    const farcasterAccountData = await farcasterAccountService.findFarcasterAccountByFid(fid);
+    const tokenService = new TokenService();
+    const agentToken = await tokenService.getTokenByFarcasterAccountId(
+        farcasterAccountData?.pk as any
+    );
+    const { mint, listing, mint_vault, sol_vault } = await agentToken;
 
     const userAta = getAssociatedTokenAddressSync(
         new PublicKey(mint),
@@ -158,14 +204,14 @@ export async function buyToken({fid, amount}){
 
     const transferTx = new Transaction().add(
         await program.methods
-            .buy(new BN(solToLamports(amount)))
+            .sell(new BN(solToLamports(Number(amount))))
             .accounts({
                 user: new PublicKey(agentToken?.wallet_address),
                 mint: new PublicKey(mint),
                 listing: new PublicKey(listing),
                 mintVault: new PublicKey(mint_vault),
                 solVault: new PublicKey(sol_vault),
-                userAta: new PublicKey(userAta),
+                userAta,
                 tokenProgram: TOKEN_PROGRAM_ID,
                 associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
                 systemProgram: SystemProgram.programId,
@@ -178,45 +224,33 @@ export async function buyToken({fid, amount}){
 
     await turnkeySigner.addSignature(transferTx, agentToken?.wallet_address);
     const txHash = await solanaNetwork.broadcast(connection, transferTx);
-    console.log('buyToken--txhash---',txHash)
+    console.log("sellToken--txhash---", txHash);
 }
 
-export async function sellToken({fid, amount}){
-    const agentService = new AgentService()
-    const agentData = await agentService.findAgentByFid(fid)
-    const tokenService = new TokenService()
-    const agentToken = await tokenService.getTokenByAgentId(agentData)
+export async function transferSol({senderWalletAddress, recipientWalletAddress, amount}) {
+    const { blockhash } = await connection.getLatestBlockhash();
+    const senderPublicKey = new PublicKey(senderWalletAddress);
+    const recipientPublicKey = new PublicKey(recipientWalletAddress);
 
-    const { mint, listing, mint_vault, sol_vault} = await agentToken
+    // Create a transaction
+    const transaction = new Transaction();
+    transaction.recentBlockhash = blockhash;
+    transaction.feePayer = senderPublicKey;
 
-    const userAta = getAssociatedTokenAddressSync(
-        new PublicKey(mint),
-        new PublicKey(agentToken?.wallet_address),
-        false,
-        TOKEN_PROGRAM_ID
+    // Add instruction to transfer SOL
+    transaction.add(
+        SystemProgram.transfer({
+            fromPubkey: senderPublicKey,
+            toPubkey: recipientPublicKey,
+            lamports: solToLamports(amount),
+        })
     );
 
-    const transferTx = new Transaction().add(
-        await program.methods
-            .sell(new BN(solToLamports(amount)))
-            .accounts({
-                user: new PublicKey(agentToken?.wallet_address),
-                mint: new PublicKey(mint),
-                listing: new PublicKey(listing),
-                mintVault: new PublicKey(mint_vault),
-                solVault: new PublicKey(sol_vault),
-                userAta: new PublicKey(userAta),
-                tokenProgram: TOKEN_PROGRAM_ID,
-                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-                systemProgram: SystemProgram.programId,
-            })
-            .instruction()
-    );
+    // Sign and send the transaction using the wallet
+    await turnkeySigner.addSignature(transaction, senderWalletAddress);
 
-    transferTx.recentBlockhash = await solanaNetwork.recentBlockhash();
-    transferTx.feePayer = new PublicKey(agentToken?.wallet_address);
-
-    await turnkeySigner.addSignature(transferTx, agentToken?.wallet_address);
-    const txHash = await solanaNetwork.broadcast(connection, transferTx);
-    console.log('sellToken--txhash---',txHash)
+    // Confirm the transaction
+    const txHash = await solanaNetwork.broadcast(connection, transaction);
+    console.log("transferSol--txhash---", txHash);
 }
+

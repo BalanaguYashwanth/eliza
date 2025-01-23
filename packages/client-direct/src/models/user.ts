@@ -1,27 +1,16 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { CHAIN_TYPE } from "../config/constantTypes";
 
 @Entity("user")
 export class User extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("increment", { type: "bigint" })
+    pk: bigint;
 
     @Column({ nullable: false, unique: true })
     fid: number;
 
-    @Column({ type: "text", nullable: false })
-    chain_type: string;
-
-    @Column({ type: "text", nullable: false })
-    chain_id: string;
-
-    @Column({ type: "int", nullable: false })
-    wallet_type: number;
-
-    @Column({ type: "text", nullable: false, unique: true })
-    wallet_id: string;
-
-    @Column({ type: "text", nullable: false, unique: true })
-    wallet_address: string;
+    @Column({ type: "int", nullable: false, default: CHAIN_TYPE.SOLANA })
+    chain_type: CHAIN_TYPE;
 
     @Column({ nullable: false, unique: true })
     username: string;

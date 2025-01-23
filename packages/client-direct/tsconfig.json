@@ -8,7 +8,7 @@
     },
     "include": [
         "src/**/*.ts",
-        "src/models/agent.ts"
+        "src/models/farcaster_account.ts"
     ],
     "overrides": [
         {
